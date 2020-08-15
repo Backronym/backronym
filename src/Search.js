@@ -1,45 +1,51 @@
 import React, { Component } from 'react';
+import Word from './Word';
 import axios from 'axios';
 
 class Search extends Component {
-<<<<<<< HEAD
-    constructor() {
-        super();
-        this.state = {
-            input: ''
-        }
-    }
-
-    render() {
-        return(
-            <div className="search"></div>
-        )
-    }
-=======
   constructor() {
       super();
       this.state = {
           input: '',
+          inputCharacters: [],
           apiWords: [],
           backronym: [],
+          counter: 0,
+          isGenerated: false
       }
   }
-  
 
-  apiCall = (e) => {
-    e.preventDefault();
+  apiCharacters = (e) => {
+      e.preventDefault();
+      this.setState({
+          inputCharacters: [...this.state.input]
+      }, () => {
+          this.apiCall(this.state.inputCharacters[0]);
+      });
+  }
 
+    handleLike = () => {
+        const newCounter = this.state.counter + 1;
+        this.setState({
+            counter: newCounter,
+            dog: this.state.results[this.state.counter].url,
+        })
+    }
+
+
+
+  apiCall = (letter, word) => {
     axios({
       url: 'https://api.datamuse.com/words?',
       method: 'GET',
       responseType: 'json',
       params: {
-        sp: 'b*',
-        lc: 'book',
+        sp: `${letter}*`,
+        lc: word,
       },
     }).then((res)=>{
       const apiWords = res.data
-      this.setState({ apiWords })
+      this.setState({ apiWords, isGenerated: true })
     })
   }
 
@@ -49,14 +55,25 @@ class Search extends Component {
     });
   };
 
+  accept = () => {
+      const copyBackronym = this.state.backronym;
+      copyBackronym.push(this.state.apiWords[this.state.counter].word);
+      this.setState({
+          backronym: copyBackronym
+      })
+  }
+
+  reject = () => {
+      this.setState({ counter: this.state.counter + 1 });
+  }
+
   render() {
     return(
       <div className="search">
 
         <form
         action="submit"
-        onSubmit={(e)=> this.apiCall(e)}>
-        
+        onSubmit={(e) => this.apiCharacters(e)}>
 
         <label htmlFor="input">Enter a word</label>
         <input 
@@ -67,15 +84,17 @@ class Search extends Component {
           id="input"
           onChange={this.handleChange}
           ></input>
-        <button onClick={this.apiCall}>Generate</button>
+        <button>Generate</button>
 
         </form>
-
+        {this.state.isGenerated 
+        ? <Word word={this.state.apiWords[this.state.counter].word} accept={this.accept} reject={this.reject}/>
+        : null
+        }
       </div>
 
     )
   }
->>>>>>> 96dd7004ae6b72c9e6cc25f510a7c16a997137bb
 }
 
 export default Search;
