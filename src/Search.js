@@ -73,13 +73,19 @@ class Search extends Component {
         if (this.state.apiWords.length < 4) {
           console.log("very few words");
           //this.apiCall(this.state.inputCharacters[this.state.inputIndex]); //to,rush
-          this.apiCall("b"); //to,rush
+          this.cool(); //to,rush
           console.log("api words array");
           console.log(this.state.apiWords);
         }
       } //making the API call only after state is set
-    );
-  };
+
+      );
+    };
+
+    cool = function(){
+      console.log('why isnt this working');
+      this.apiCall('b');
+    }
 
   reject = () => {
     this.setState({ rejectCounter: this.state.rejectCounter + 1 }); //loop to the next word in the array
