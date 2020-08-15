@@ -3,6 +3,7 @@ import Search from "./Search";
 import "./App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { render } from "@testing-library/react";
+import DisplayBoard from "./DisplayBoard";
 
 // Make an input and submit button on "search" component
 //- store input value in state
@@ -23,6 +24,7 @@ class App extends Component {
           <h1>Test 2</h1>
         </div>
         <Search />
+        <DisplayBoard />
       </Router>
     );
   }

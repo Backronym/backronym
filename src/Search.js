@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Word from "./Word";
 import axios from "axios";
+import firebase from './firebase';
 
 class Search extends Component {
   constructor() {
@@ -16,6 +17,11 @@ class Search extends Component {
       isGenerated: false,
     };
   }
+  //////////////////////////////////////////////
+  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  //FUNCTIONS
+  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  //////////////////////////////////////////////
 
   //the first API call
   apiCharacters = (e) => {
@@ -23,6 +29,11 @@ class Search extends Component {
     this.setState(
       {
         inputCharacters: [...this.state.input],
+        input: "",
+        inputIndex: 0,
+        backronym: [],
+        backronymIndex: -1,
+        rejectCounter: 0,
       },
       () => {
         this.apiCall(this.state.inputCharacters[0]);
@@ -67,17 +78,10 @@ class Search extends Component {
           this.state.inputCharacters[this.state.inputIndex], //"r","u"
           this.state.backronym[this.state.backronymIndex] //to,rush
         );
-        console.log(this.state.apiWords);
-        console.log(this.state.apiWords.length);
+        if (this.state.apiWords.length < 4 ){
 
-        if (this.state.apiWords.length < 4) {
-          console.log("very few words");
-          //this.apiCall(this.state.inputCharacters[this.state.inputIndex]); //to,rush
-          this.apiCall("b"); //to,rush
-          console.log("api words array");
-          console.log(this.state.apiWords);
-        }
-      } //making the API call only after state is set
+    }
+    }//making the API call only after state is set
     );
   };
 
@@ -85,6 +89,32 @@ class Search extends Component {
     this.setState({ rejectCounter: this.state.rejectCounter + 1 }); //loop to the next word in the array
   };
 
+  handleRedo = () => {
+    console.log('cool');
+    this.setState({
+        inputIndex: 0,
+        backronym: [],
+        backronymIndex: -1,
+        rejectCounter: 0,
+    }, () => {
+        this.apiCall(this.state.inputCharacters[this.state.inputIndex]);
+    })
+  }
+
+  handleSave = () => {
+      const dbRef = firebase.database().ref();
+      const backronymObject = {
+          word: this.state.inputCharacters.join(''),
+          backronym: this.state.backronym.join(' ')
+      }
+      dbRef.push(backronymObject);
+  }
+
+  //////////////////////////////////////////////
+  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  //RENDER
+  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  //////////////////////////////////////////////
   render() {
     return (
       <div className="search">
@@ -100,13 +130,35 @@ class Search extends Component {
           ></input>
           <button>Generate</button>
         </form>
-        {this.state.isGenerated ? (
-          <Word
-            word={this.state.apiWords[this.state.rejectCounter].word}
-            accept={this.accept}
-            reject={this.reject}
-          />
-        ) : null}
+        {
+        !this.state.isGenerated
+        ? null
+        : this.state.backronym.length < this.state.inputCharacters.length
+            ?<Word
+                word={this.state.apiWords[this.state.rejectCounter].word}
+                accept={this.accept}
+                reject={this.reject}
+            />
+            : null
+        }
+
+            <ul>
+                {
+                    this.state.inputCharacters.map( (letter) => {
+                        return <li>{letter}</li>
+                    })
+                }
+            </ul>
+            <ul>
+                {
+                    this.state.backronym.map( (word) => {
+                        return <li>{word}</li>
+                    })
+                }
+            </ul>
+            
+            <button onClick={() => this.handleRedo()}>Redo</button>
+            <button onClick={() => this.handleSave()}>Save</button>
       </div>
     );
   }
