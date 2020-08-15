@@ -72,7 +72,8 @@ class Search extends Component {
 
         if (this.state.apiWords.length < 4) {
           console.log("very few words");
-          this.apiCall(this.state.inputCharacters[this.state.inputIndex]); //to,rush
+          //this.apiCall(this.state.inputCharacters[this.state.inputIndex]); //to,rush
+          this.apiCall("b"); //to,rush
           console.log("api words array");
           console.log(this.state.apiWords);
         }
