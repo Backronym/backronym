@@ -7,13 +7,17 @@ class Frequency extends Component {
             frequencyAverage: 0
         }
     }
-    componentDidMount() {
-        const frequencyAverage = arr => this.props.frequency.reduce((a, b) => a + b, 0) / this.props.frequency.length;
-        this.setState({frequencyAverage});
+    componentWillMount() {
+        const arrAvg = arr => arr.reduce((a, b) => a + b, 0) / arr.length;
+        const freqAvg = arrAvg(this.props.frequency);
+        this.setState({frequencyAverage: freqAvg});
     }
     render() {
         return(
-            <h3>{this.state.frequencyAverage}</h3>
+            <div className="frequency">
+                <span>This backronym frequency is:</span>
+                <h3>{this.state.frequencyAverage}</h3>
+            </div>
         )
     }
 }

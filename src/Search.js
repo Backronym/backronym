@@ -144,11 +144,6 @@ class Search extends Component {
     dbRef.push(backronymObject);
   };
 
-//   componentDidMount() {
-//       const backronymFrequency = arr => this.state.frequency.reduce((a, b) => a + b, 0) / this.state.frequency.length;
-//       this.setState({backronymFrequency});
-//   }
-
   //////////////////////////////////////////////
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   //RENDER
@@ -189,7 +184,6 @@ class Search extends Component {
           </div>
         </div>
         <div className="results">
-<<<<<<< HEAD
             <div className="resultsGap">
                 {
                 !this.state.isGenerated
@@ -211,24 +205,6 @@ class Search extends Component {
                     </ul>
                 </div>
             </div>
-=======
-          <div className="resultsGap">
-            {!this.state.isGenerated ? null : this.state.backronym.length <
-              this.state.inputCharacters.length ? (
-              <Word
-                word={this.state.apiWords[this.state.rejectCounter].word}
-                accept={this.accept}
-                reject={this.reject}
-              />
-            ) : null}
-            <ul className="words">
-              {this.state.backronym.map((word) => {
-                return <li>{word}</li>;
-              })}
-            </ul>
-          </div>
-        </div>
->>>>>>> master
       </div>
     );
   }
