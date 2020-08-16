@@ -21,9 +21,8 @@ class app extends Component {
     return (
       <Router>
         <div className="App">
-        
-        <Search />
-        <Route path="/displayboard" component={DisplayBoard} />
+          <Route exact path="/" component={Search} />
+          <Route path="/displayboard" component={DisplayBoard} />
         </div>
       </Router>
     );
