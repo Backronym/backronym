@@ -1,26 +1,27 @@
 import React, { Component } from "react";
-import firebase from './firebase';
+import firebase from "./firebase";
 
 class DisplayBoard extends Component {
-constructor() {
+  constructor() {
     super();
     this.state = {
-        database: []
-    }
-}
-componentDidMount() {
+      database: [],
+    };
+  }
+  componentDidMount() {
     const dbRef = firebase.database().ref();
-    dbRef.on('value', (snapshot) => {
+    dbRef.on("value", (snapshot) => {
       const data = snapshot.val();
       const update = [];
       for (let key in data) {
-        update.push({ key: key, data: data[key] })
+        update.push({ key: key, data: data[key] });
       }
       this.setState({
-        database: update
-      })
-    })
-}
+        database: update,
+      });
+    });
+  }
+
 
     render () {
         return(
@@ -40,6 +41,7 @@ componentDidMount() {
             </div>
         )
     }
+
 }
 
 export default DisplayBoard;
