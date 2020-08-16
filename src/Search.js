@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Word from "./Word";
+import Frequency from './Frequency';
 import axios from "axios";
 import firebase from "./firebase";
 
@@ -13,6 +14,7 @@ class Search extends Component {
       apiWords: [],
       backronym: [],
       backronymIndex: -1, //index of last accepted word in the backronym array
+      frequency: [],
       rejectCounter: 0, //index to loop through API call result array
       isGenerated: false,
     };
@@ -53,6 +55,7 @@ class Search extends Component {
       params: {
         sp: `${letter}*`,
         lc: word,
+        md: 'f',
       },
     }).then((firstAPICallResult) => {
       const apiWords = firstAPICallResult.data;
@@ -65,6 +68,7 @@ class Search extends Component {
           responseType: "json",
           params: {
             sp: `${letter}*`,
+            md: 'f',
           },
         }).then((secondAPICallResult) => {
           const apiWords = secondAPICallResult.data;
@@ -85,10 +89,15 @@ class Search extends Component {
   accept = () => {
     const copyBackronym = this.state.backronym; //array of accepted words
     copyBackronym.push(this.state.apiWords[this.state.rejectCounter].word);
+    const copyFrequency = this.state.frequency;
+    const wordFrequency = this.state.apiWords[this.state.rejectCounter].tags[0];
+    const frequencyNum = parseFloat(wordFrequency.substring(2));
+    copyFrequency.push(frequencyNum);
 
     this.setState(
       {
         backronym: copyBackronym,
+        frequency: copyFrequency,
         rejectCounter: 0,
         backronymIndex: this.state.backronymIndex + 1,
         inputIndex: this.state.inputIndex + 1,
@@ -132,6 +141,11 @@ class Search extends Component {
     dbRef.push(backronymObject);
   };
 
+//   componentDidMount() {
+//       const backronymFrequency = arr => this.state.frequency.reduce((a, b) => a + b, 0) / this.state.frequency.length;
+//       this.setState({backronymFrequency});
+//   }
+
   //////////////////////////////////////////////
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   //RENDER
@@ -172,7 +186,7 @@ class Search extends Component {
                         accept={this.accept}
                         reject={this.reject}
                     />
-                    : null
+                    : <Frequency frequency={this.state.frequency}/>
                 }
                     <ul className="words">
                         {
