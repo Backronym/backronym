@@ -24,17 +24,19 @@ componentDidMount() {
 
     render () {
         return(
-            <div>
-                <ul>
-                    {
-                        this.state.database.map((item) => {
-                            return <li>
-                                <span>{item.data.word}</span>
-                                <p>{item.data.backronym}</p>
-                            </li>
-                        })
-                    }
-                </ul>
+            <div className="gridParent">
+                <div className="displayBoard">
+                    <ul>
+                        {
+                            this.state.database.map((item) => {
+                                return <li>
+                                    <span>{item.data.word}</span>
+                                    <p>{item.data.backronym}</p>
+                                </li>
+                            })
+                        }
+                    </ul>
+                </div>
             </div>
         )
     }

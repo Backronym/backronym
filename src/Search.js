@@ -117,48 +117,49 @@ class Search extends Component {
   //////////////////////////////////////////////
   render() {
     return (
-      <div className="search">
-        <form action="submit" onSubmit={(e) => this.apiCharacters(e)}>
-          <label htmlFor="input">Enter a word</label>
-          <input
-            type="text"
-            value={this.state.input}
-            pattern="^[A-Za-z]{3,10}$"
-            required
-            id="input"
-            onChange={this.handleChange}
-          ></input>
-          <button>Generate</button>
-        </form>
-        {
-        !this.state.isGenerated
-        ? null
-        : this.state.backronym.length < this.state.inputCharacters.length
-            ?<Word
-                word={this.state.apiWords[this.state.rejectCounter].word}
-                accept={this.accept}
-                reject={this.reject}
-            />
-            : null
-        }
-
-            <ul>
+      <div className="search gridParent">
+          <div className="controls">
+              <div className="controlsGap">
+                <h1>Backronym</h1>
+                <form action="submit" onSubmit={(e) => this.apiCharacters(e)}>
+                    <label htmlFor="input">Enter a word</label>
+                    <input
+                        placeholder="eg: bird"
+                        type="text"
+                        value={this.state.input}
+                        pattern="^[A-Za-z]{3,10}$"
+                        required
+                        id="input"
+                        onChange={this.handleChange}
+                    ></input>
+                    <button className="generate lightButton">Generate</button>
+                </form>
+                <button className="secondaryControlButtons" onClick={() => this.handleRedo()}>Redo</button>
+                <button className="secondaryControlButtons secondarySButton" onClick={() => this.handleSave()}>Save</button>
+            </div>
+        </div>
+        <div className="results">
+            <div className="resultsGap">
                 {
-                    this.state.inputCharacters.map( (letter) => {
-                        return <li>{letter}</li>
-                    })
+                !this.state.isGenerated
+                ? null
+                : this.state.backronym.length < this.state.inputCharacters.length
+                    ?<Word
+                        word={this.state.apiWords[this.state.rejectCounter].word}
+                        accept={this.accept}
+                        reject={this.reject}
+                    />
+                    : null
                 }
-            </ul>
-            <ul>
-                {
-                    this.state.backronym.map( (word) => {
-                        return <li>{word}</li>
-                    })
-                }
-            </ul>
-            
-            <button onClick={() => this.handleRedo()}>Redo</button>
-            <button onClick={() => this.handleSave()}>Save</button>
+                    <ul className="words">
+                        {
+                            this.state.backronym.map( (word) => {
+                                return <li>{word}</li>
+                            })
+                        }
+                    </ul>
+                </div>
+            </div>
       </div>
     );
   }
