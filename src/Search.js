@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Word from "./Word";
 import axios from "axios";
-import firebase from "./Firebase";
+import firebase from "./firebase";
 
 class Search extends Component {
   constructor() {
