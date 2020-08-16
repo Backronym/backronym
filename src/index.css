@@ -1,13 +1,243 @@
+/***************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+CSS RESET & SETUP http://meyerweb.com/eric/tools/css/reset/ License: none (public domain) v2.0 | 20110126
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+***************************************/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@import url("https://fonts.googleapis.com/css2?family=Maitree&family=Montserrat&display=swap");
+
+/***************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+GLOBALS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+***************************************/
+
+html {
+    background-color: #F4E6E8;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 125%;
+}
+
+h1, .title {
+  font-family:  'Maitree', serif;
+  text-transform: uppercase;
+}
+
+.gridParent {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  grid-template-rows: 100vh;
+}
+
+/***************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+QUICK CLASSES
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+***************************************/
+.lightButton {
+  border: 3px solid #F4E6E8;
+  color: #F4E6E8;
+  border-radius: 5px;
+}
+
+.lightButton:hover {
+  border: 3px solid #FF7600;
+  background-color: #FF7600;
+  color: #F4E6E8;
+}
+
+.primeButton {
+  border: 3px solid #81003C;
+  background: #81003C;
+  color: #F4E6E8;
+  
+  border-radius: 3px;
+}
+
+.primeButton:hover {
+  color: #81003C;
+  background: none;
+}
+
+.secondarySButton {
+  border: 3px solid #FF7600;
+  background-color: #FF7600;
+  color: #F4E6E8;
+  border-radius: 3px;
+}
+
+.secondarySButton:hover {
+  background: none;
+  color: #FF7600;
+}
+
+/***************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+SEARCH COMPONENT
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+***************************************/
+
+
+.controls {
+  height: 100vh;
+  background-color: black;
+  box-shadow: 10px 0px 23px -6px rgba(0,0,0,0.75);
+  color: #F4E6E8;
+}
+
+.controlsGap {
+  padding: 2vw;
+}
+
+.results {
+  grid-column: 2/3;
+}
+
+.resultsGap {
+  padding: 5vw;
+}
+
+ul {
+  display: inline-block;
+}
+
+.words {
+  font-size: 3rem;
+  letter-spacing: 2px;
+}
+
+.words li {
+  margin-top: -10px;
+}
+
+.words li::first-letter {
+  font-size: 5rem;
+  text-transform: uppercase;
+  color: #81003C;
+}
+
+.controls button {
+  color: #F4E6E8;
+}
+
+.controls input {
+  width: 98%;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  border-radius: 5px;
+  background-color: #F4E6E8;
+  border: 3px solid #F4E6E8;
+  margin-top: 10px;
+}
+
+.controls input:focus, .controls input:active {
+  border: 3px solid #FF7600;
+}
+
+.generate {
+  width: 100%;
+  font-size: 1.3rem;
+  line-height: 2rem;
+  margin: 15px 0;
+}
+
+.secondaryControlButtons {
+  font-size: 1.2rem;
+  padding: 3px 10px;
+}
+
+h1 {
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  margin: 50px 0 20px 0;
+}
+
+/***************************************
+WORD SUB-COMPONENT
+***************************************/
+.word {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+h2 {
+  display: inline;
+  font-size: 4rem;
+  color: #81003C;
+  text-transform: capitalize;
+}
+
+.word div:nth-of-type(1) {
+  margin-top: -6px;
+}
+
+.chooseWord {
+  display: block;
+  margin-right: 15px;
+  width: 65px;
+  font-size: 0.75rem;
+}
+
+.chooseWord:nth-of-type(1){
+  margin-top: 18px;
+}
+.chooseWord:nth-of-type(2) {
+  margin-top: 6px;
+}
+
+/***************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DISPLAY COMPONENT
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+***************************************/
+.display {
+  grid-column: 2/3;
 }
