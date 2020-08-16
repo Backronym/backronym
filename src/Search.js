@@ -114,11 +114,14 @@ class Search extends Component {
   };
 
   reject = () => {
-    this.setState({ rejectCounter: this.state.rejectCounter + 1 }); //loop to the next word in the array
+    if (this.state.rejectCounter === this.state.apiWords.length - 1) {
+      this.setState({ rejectCounter: 0 });
+    } else {
+      this.setState({ rejectCounter: this.state.rejectCounter + 1 }); //loop to the next word in the array
+    }
   };
 
   handleRedo = () => {
-    console.log("cool");
     this.setState(
       {
         inputIndex: 0,
@@ -153,29 +156,40 @@ class Search extends Component {
   //////////////////////////////////////////////
   render() {
     return (
-
       <div className="search gridParent">
-          <div className="controls">
-              <div className="controlsGap">
-                <h1>Backronym</h1>
-                <form action="submit" onSubmit={(e) => this.apiCharacters(e)}>
-                    <label htmlFor="input">Enter a word</label>
-                    <input
-                        placeholder="eg: bird"
-                        type="text"
-                        value={this.state.input}
-                        pattern="^[A-Za-z]{3,10}$"
-                        required
-                        id="input"
-                        onChange={this.handleChange}
-                    ></input>
-                    <button className="generate lightButton">Generate</button>
-                </form>
-                <button className="secondaryControlButtons" onClick={() => this.handleRedo()}>Redo</button>
-                <button className="secondaryControlButtons secondarySButton" onClick={() => this.handleSave()}>Save</button>
-            </div>
+        <div className="controls">
+          <div className="controlsGap">
+            <h1>Backronym</h1>
+            <form action="submit" onSubmit={(e) => this.apiCharacters(e)}>
+              <label htmlFor="input">Enter a word</label>
+              <input
+                placeholder="eg: bird"
+                type="text"
+                value={this.state.input}
+                pattern="^[A-Za-z]{3,10}$"
+                title="our message here"
+                required
+                id="input"
+                onChange={this.handleChange}
+              ></input>
+              <button className="generate lightButton">Generate</button>
+            </form>
+            <button
+              className="secondaryControlButtons primeButton"
+              onClick={() => this.handleRedo()}
+            >
+              Redo
+            </button>
+            <button
+              className="secondaryControlButtons secondarySButton"
+              onClick={() => this.handleSave()}
+            >
+              Save
+            </button>
+          </div>
         </div>
         <div className="results">
+<<<<<<< HEAD
             <div className="resultsGap">
                 {
                 !this.state.isGenerated
@@ -197,6 +211,24 @@ class Search extends Component {
                     </ul>
                 </div>
             </div>
+=======
+          <div className="resultsGap">
+            {!this.state.isGenerated ? null : this.state.backronym.length <
+              this.state.inputCharacters.length ? (
+              <Word
+                word={this.state.apiWords[this.state.rejectCounter].word}
+                accept={this.accept}
+                reject={this.reject}
+              />
+            ) : null}
+            <ul className="words">
+              {this.state.backronym.map((word) => {
+                return <li>{word}</li>;
+              })}
+            </ul>
+          </div>
+        </div>
+>>>>>>> master
       </div>
     );
   }
