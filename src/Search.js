@@ -41,6 +41,10 @@ class Search extends Component {
     );
   };
 
+  //This function can call the API upto two times:
+  // - the first time passing a "starting letter" as well as a word
+  //- the second time passing just a "starting letter"
+  // - if the first api call returns no "related words" in the results, we make the second API call
   apiCall = (letter, word) => {
     axios({
       url: "https://api.datamuse.com/words?",
@@ -50,9 +54,25 @@ class Search extends Component {
         sp: `${letter}*`,
         lc: word,
       },
-    }).then((res) => {
-      const apiWords = res.data;
-      this.setState({ apiWords, isGenerated: true });
+    }).then((firstAPICallResult) => {
+      const apiWords = firstAPICallResult.data;
+      if (apiWords.length > 0) {
+        this.setState({ apiWords, isGenerated: true });
+      } else {
+        axios({
+          url: "https://api.datamuse.com/words?",
+          method: "GET",
+          responseType: "json",
+          params: {
+            sp: `${letter}*`,
+          },
+        }).then((secondAPICallResult) => {
+          const apiWords = secondAPICallResult.data;
+          if (apiWords.length > 0) {
+            this.setState({ apiWords, isGenerated: true });
+          }
+        });
+      }
     });
   };
 
