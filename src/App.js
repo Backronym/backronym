@@ -21,11 +21,18 @@ class app extends Component {
   render() {
     return (
       <Router>
+<<<<<<< HEAD
 
         <Route exact path="/" component={ Login }/>
         <Route path="/backronym" component={ Search }/>
         <Route path="/displayboard" component={ DisplayBoard } />
 
+=======
+        <div className="App">
+          <Route exact path="/" component={Search} />
+          <Route path="/displayboard" component={DisplayBoard} />
+        </div>
+>>>>>>> master
       </Router>
     );
   }
