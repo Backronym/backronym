@@ -99,14 +99,6 @@ class Search extends Component {
           this.state.backronym[this.state.backronymIndex] //to,rush
         );
         if (this.state.apiWords.length < 4) {
-<<<<<<< HEAD
-          console.log("very few words");
-          //this.apiCall(this.state.inputCharacters[this.state.inputIndex]); //to,rush
-          this.cool(); //to,rush
-          console.log("api words array");
-          console.log(this.state.apiWords);
-=======
->>>>>>> master
         }
       } //making the API call only after state is set
 
