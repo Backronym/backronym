@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Word from "./Word";
 import axios from "axios";
-import firebase from './firebase';
+import firebase from "./Firebase";
 
 class Search extends Component {
   constructor() {
@@ -78,10 +78,9 @@ class Search extends Component {
           this.state.inputCharacters[this.state.inputIndex], //"r","u"
           this.state.backronym[this.state.backronymIndex] //to,rush
         );
-        if (this.state.apiWords.length < 4 ){
-
-    }
-    }//making the API call only after state is set
+        if (this.state.apiWords.length < 4) {
+        }
+      } //making the API call only after state is set
     );
   };
 
@@ -90,25 +89,28 @@ class Search extends Component {
   };
 
   handleRedo = () => {
-    console.log('cool');
-    this.setState({
+    console.log("cool");
+    this.setState(
+      {
         inputIndex: 0,
         backronym: [],
         backronymIndex: -1,
         rejectCounter: 0,
-    }, () => {
+      },
+      () => {
         this.apiCall(this.state.inputCharacters[this.state.inputIndex]);
-    })
-  }
+      }
+    );
+  };
 
   handleSave = () => {
-      const dbRef = firebase.database().ref();
-      const backronymObject = {
-          word: this.state.inputCharacters.join(''),
-          backronym: this.state.backronym.join(' ')
-      }
-      dbRef.push(backronymObject);
-  }
+    const dbRef = firebase.database().ref();
+    const backronymObject = {
+      word: this.state.inputCharacters.join(""),
+      backronym: this.state.backronym.join(" "),
+    };
+    dbRef.push(backronymObject);
+  };
 
   //////////////////////////////////////////////
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -130,35 +132,28 @@ class Search extends Component {
           ></input>
           <button>Generate</button>
         </form>
-        {
-        !this.state.isGenerated
-        ? null
-        : this.state.backronym.length < this.state.inputCharacters.length
-            ?<Word
-                word={this.state.apiWords[this.state.rejectCounter].word}
-                accept={this.accept}
-                reject={this.reject}
-            />
-            : null
-        }
+        {!this.state.isGenerated ? null : this.state.backronym.length <
+          this.state.inputCharacters.length ? (
+          <Word
+            word={this.state.apiWords[this.state.rejectCounter].word}
+            accept={this.accept}
+            reject={this.reject}
+          />
+        ) : null}
 
-            <ul>
-                {
-                    this.state.inputCharacters.map( (letter) => {
-                        return <li>{letter}</li>
-                    })
-                }
-            </ul>
-            <ul>
-                {
-                    this.state.backronym.map( (word) => {
-                        return <li>{word}</li>
-                    })
-                }
-            </ul>
-            
-            <button onClick={() => this.handleRedo()}>Redo</button>
-            <button onClick={() => this.handleSave()}>Save</button>
+        <ul>
+          {this.state.inputCharacters.map((letter) => {
+            return <li>{letter}</li>;
+          })}
+        </ul>
+        <ul>
+          {this.state.backronym.map((word) => {
+            return <li>{word}</li>;
+          })}
+        </ul>
+
+        <button onClick={() => this.handleRedo()}>Redo</button>
+        <button onClick={() => this.handleSave()}>Save</button>
       </div>
     );
   }
