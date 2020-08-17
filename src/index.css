@@ -220,7 +220,9 @@ SEARCH COMPONENT
 
 .results {
   grid-column: 2/3;
-  background-color: red;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 80vh 20vh;
 }
 
 .resultsGap {
@@ -275,6 +277,11 @@ ul {
 .secondaryControlButtons {
   font-size: 1.2rem;
   padding: 3px 10px;
+  width: calc(50% - 5px);
+}
+
+.secondaryControlButtons:nth-of-type(2) {
+  margin-left: 10px;
 }
 
 .search h1 {
@@ -325,6 +332,91 @@ DISPLAY COMPONENT
   grid-column: 2/3;
 }
 
+/***************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+LOGIN COMPONENT
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+***************************************/
+.login {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  background-color: #81003C;
+  position: relative;
+  z-index: 1;
+  box-shadow: 10px 0px 23px -6px rgba(0,0,0,0.75);
+}
+
+a {
+  display: block;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin: 25px 15px;
+}
+
+.hero {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  background-image: url(./assets/backronyms.jpg);
+}
+
+.hero img {
+  height: 100%;
+  width: 100%;
+}
+
+/***************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DISPLAY BOARD COMPONENT
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+***************************************/
+
+.display {
+  grid-row: 2/3;
+  grid-column: 1/2;
+  overflow: auto;
+  border-top: 2px solid black;
+}
+
+.displayGap {
+  margin: 10px;
+}
+
+.display li {
+  margin-bottom: 5px;
+}
+
+.display h6 {
+  display: inline;
+  font-weight: 600; 
+  text-transform: capitalize;
+}
+
+.display p {
+  display: inline;
+  margin-left: 10px;
+}
+
+
+/***************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+FREQUENCY COMPONENT
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+***************************************/
+.frequency {
+  background-color: black;
+  border-radius: 7px;
+  color: #ff7600;
+  margin: -10px 0 20px 0;
+  height: 75px;
+}
+.frequency h5 {
+  padding: 10px;
+}
+.frequency span{
+  color: #f4e6e8;
+  font-weight: 600;
+  padding-left: 10px;
+}
 /***********************************  */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* MEDIA QUERIES                     */
