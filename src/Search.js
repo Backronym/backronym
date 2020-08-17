@@ -4,6 +4,8 @@ import Frequency from './Frequency';
 import DisplayB from './DisplayB';
 import axios from "axios";
 import firebase from "./firebase";
+import Loader from './Loader';
+
 
 class Search extends Component {
   constructor() {
@@ -18,6 +20,7 @@ class Search extends Component {
       frequency: [], //ngram frequency of each word in the backronym array
       displayArray: [],
       rejectCounter: 0, //index to loop through API call result array
+      loading: false,
       isGenerated: false, //API results flag
     };
   }
@@ -38,6 +41,7 @@ class Search extends Component {
         backronym: [],
         backronymIndex: -1,
         rejectCounter: 0,
+        loading: true,
         frequency: [],
       },
       () => {
@@ -63,7 +67,7 @@ class Search extends Component {
     }).then((firstAPICallResult) => {
       const apiWords = firstAPICallResult.data;
       if (apiWords.length > 0) {
-        this.setState({ apiWords, isGenerated: true });
+        this.setState({ apiWords, isGenerated: true , loading: false });
       } else {
         axios({
           url: "https://api.datamuse.com/words?",
@@ -76,7 +80,7 @@ class Search extends Component {
         }).then((secondAPICallResult) => {
           const apiWords = secondAPICallResult.data;
           if (apiWords.length > 0) {
-            this.setState({ apiWords, isGenerated: true });
+            this.setState({ apiWords, isGenerated: true , loading: false });
           }
         });
       }
@@ -217,14 +221,22 @@ class Search extends Component {
                     />
                     : <Frequency frequency={this.state.frequency}/>
                 }
-                    {/* display the user accepted backronym word */}
-                    <ul className="words">
-                        {
-                            this.state.backronym.map( (word, index) => {
-                                return <li key={index}>{word}</li>
-                            })
-                        }
+
+                {
+                  this.state.loading 
+                  ? <Loader />
+                  : <ul className="words">
+                      {
+                        //  display the user accepted backronym word 
+                        this.state.backronym.map( (word, index) => {
+                              return <li key={index}>{word}</li>
+                          })
+                      }
                     </ul>
+                }
+
+                
+                    
                     </div>
                     <DisplayB />
                 
