@@ -9,16 +9,16 @@ class Search extends Component {
   constructor() {
     super();
     this.state = {
-      input: "",
+      input: "", //user input, initially set to an empty string
       inputCharacters: [], //input string spread out
-      inputIndex: 0,
-      apiWords: [],
-      backronym: [],
+      inputIndex: 0, //tracking the index of inputCharacters
+      apiWords: [], //words that are returned from the API
+      backronym: [], //an array of user accepted words
       backronymIndex: -1, //index of last accepted word in the backronym array
+      frequency: [], //ngram frequency of each word in the backronym array
       displayArray: [],
-      frequency: [],
       rejectCounter: 0, //index to loop through API call result array
-      isGenerated: false,
+      isGenerated: false, //API results flag
     };
   }
   //////////////////////////////////////////////
@@ -27,7 +27,7 @@ class Search extends Component {
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   //////////////////////////////////////////////
 
-  //the first API call
+  //the first API call and resetting states
   apiCharacters = (e) => {
     e.preventDefault();
     this.setState(
@@ -38,6 +38,7 @@ class Search extends Component {
         backronym: [],
         backronymIndex: -1,
         rejectCounter: 0,
+        frequency: [],
       },
       () => {
         this.apiCall(this.state.inputCharacters[0]);
@@ -82,20 +83,25 @@ class Search extends Component {
     });
   };
 
+  //saving the user input value
   handleChange = (e) => {
     this.setState({
       input: e.target.value,
     });
   };
 
+  //function to handle when user accepts a word for the backronym
   accept = () => {
+    //pushing the user selected word to a copy of the backronym array
     const copyBackronym = this.state.backronym; //array of accepted words
     copyBackronym.push(this.state.apiWords[this.state.rejectCounter].word);
+    //parsing the ngram frequecny value from string to a float in order to do calculations
     const copyFrequency = this.state.frequency;
     const wordFrequency = this.state.apiWords[this.state.rejectCounter].tags[0];
     const frequencyNum = parseFloat(wordFrequency.substring(2));
     copyFrequency.push(frequencyNum);
 
+    //updating state and making an API call with the next input letter and the saved backronym word 
     this.setState(
       {
         backronym: copyBackronym,
@@ -121,6 +127,7 @@ class Search extends Component {
     );
   };
 
+  //function to handle when the user rejects a word for the backronym
   reject = () => {
     if (this.state.rejectCounter === this.state.apiWords.length - 1) {
       this.setState({ rejectCounter: 0 });
@@ -129,6 +136,7 @@ class Search extends Component {
     }
   };
 
+  //making an API call with the first input letter if the user chooses to redo the backronym
   handleRedo = () => {
     this.setState(
       {
@@ -143,6 +151,7 @@ class Search extends Component {
     );
   };
 
+  //saving the backronyms to firebase on Save
   handleSave = () => {
     const dbRef = firebase.database().ref("userCollection");
     const backronymObject = {
@@ -163,6 +172,7 @@ class Search extends Component {
         <div className="controls">
           <div className="controlsGap">
             <h1>Backronym</h1>
+            {/* user input form */}
             <form action="submit" onSubmit={(e) => this.apiCharacters(e)}>
               <label htmlFor="input">Enter a word</label>
               <input
@@ -177,6 +187,7 @@ class Search extends Component {
               ></input>
               <button className="generate lightButton">Generate</button>
             </form>
+            {/* buttons to redo and save */}
             <button
               className="secondaryControlButtons primeButton"
               onClick={() => this.handleRedo()}
@@ -191,7 +202,9 @@ class Search extends Component {
             </button>
           </div>
         </div>
+        {/* Displaying the results */}
         <div className="results">
+            {/* show words from the API results until the user accepts backronyms for all letters and then pass the ngram frequencies as props to the Frequency component */}
             <div className="resultsGap">
                 {
                 !this.state.isGenerated
@@ -204,10 +217,11 @@ class Search extends Component {
                     />
                     : <Frequency frequency={this.state.frequency}/>
                 }
+                    {/* display the user accepted backronym word */}
                     <ul className="words">
                         {
-                            this.state.backronym.map( (word) => {
-                                return <li>{word}</li>
+                            this.state.backronym.map( (word, index) => {
+                                return <li key={index}>{word}</li>
                             })
                         }
                     </ul>
