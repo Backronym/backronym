@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Word from "./Word";
 import Frequency from './Frequency';
+import DisplayB from './DisplayB';
 import axios from "axios";
 import firebase from "./firebase";
 
@@ -14,6 +15,7 @@ class Search extends Component {
       apiWords: [],
       backronym: [],
       backronymIndex: -1, //index of last accepted word in the backronym array
+      displayArray: [],
       frequency: [],
       rejectCounter: 0, //index to loop through API call result array
       isGenerated: false,
@@ -107,7 +109,13 @@ class Search extends Component {
           this.state.inputCharacters[this.state.inputIndex], //"r","u"
           this.state.backronym[this.state.backronymIndex] //to,rush
         );
-        if (this.state.apiWords.length < 4) {
+        if (this.state.backronym.length === this.state.inputCharacters.length) {
+          const dbRef = firebase.database().ref('displayBoard');
+          const backronymObject = {
+            word: this.state.inputCharacters.join(""),
+            backronym: this.state.backronym.join(" "),
+          };
+          dbRef.push(backronymObject);
         }
       } //making the API call only after state is set
     );
@@ -136,7 +144,7 @@ class Search extends Component {
   };
 
   handleSave = () => {
-    const dbRef = firebase.database().ref();
+    const dbRef = firebase.database().ref('userCollection');
     const backronymObject = {
       word: this.state.inputCharacters.join(""),
       backronym: this.state.backronym.join(" "),
@@ -203,7 +211,9 @@ class Search extends Component {
                             })
                         }
                     </ul>
-                </div>
+                    </div>
+                    <DisplayB />
+                
             </div>
       </div>
     );

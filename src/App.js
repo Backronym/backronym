@@ -3,7 +3,6 @@ import Search from "./Search";
 import "./App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { render } from "@testing-library/react";
-import DisplayBoard from "./DisplayBoard";
 import Login from './Login';
 
 // Make an input and submit button on "search" component
@@ -24,7 +23,7 @@ class app extends Component {
 
         <Route exact path="/" component={ Login }/>
         <Route path="/backronym" component={ Search }/>
-        <Route path="/displayboard" component={ DisplayBoard } />
+        <Route path="/displayboard" component={ Search } />
 
       </Router>
     );
