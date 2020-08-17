@@ -57,7 +57,7 @@ class Search extends Component {
       params: {
         sp: `${letter}*`,
         lc: word,
-        md: 'f',
+        md: "f",
       },
     }).then((firstAPICallResult) => {
       const apiWords = firstAPICallResult.data;
@@ -70,7 +70,7 @@ class Search extends Component {
           responseType: "json",
           params: {
             sp: `${letter}*`,
-            md: 'f',
+            md: "f",
           },
         }).then((secondAPICallResult) => {
           const apiWords = secondAPICallResult.data;
@@ -144,7 +144,7 @@ class Search extends Component {
   };
 
   handleSave = () => {
-    const dbRef = firebase.database().ref('userCollection');
+    const dbRef = firebase.database().ref("userCollection");
     const backronymObject = {
       word: this.state.inputCharacters.join(""),
       backronym: this.state.backronym.join(" "),
