@@ -3,48 +3,129 @@
 CSS RESET & SETUP http://meyerweb.com/eric/tools/css/reset/ License: none (public domain) v2.0 | 20110126
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ***************************************/
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
 }
 body {
-	line-height: 1;
+  line-height: 1;
 }
-ol, ul {
-	list-style: none;
+ol,
+ul {
+  list-style: none;
 }
-blockquote, q {
-	quotes: none;
+blockquote,
+q {
+  quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 button {
   border: none;
@@ -61,13 +142,14 @@ GLOBALS
 ***************************************/
 
 html {
-    background-color: #F4E6E8;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 125%;
+  background-color: #f4e6e8;
+  font-family: "Montserrat", sans-serif;
+  font-size: 125%;
 }
 
-h1, .title {
-  font-family:  'Maitree', serif;
+h1,
+.title {
+  font-family: "Maitree", serif;
   text-transform: uppercase;
 }
 
@@ -83,40 +165,40 @@ QUICK CLASSES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ***************************************/
 .lightButton {
-  border: 3px solid #F4E6E8;
-  color: #F4E6E8;
+  border: 3px solid #f4e6e8;
+  color: #f4e6e8;
   border-radius: 5px;
 }
 
 .lightButton:hover {
-  border: 3px solid #FF7600;
-  background-color: #FF7600;
-  color: #F4E6E8;
+  border: 3px solid #ff7600;
+  background-color: #ff7600;
+  color: #f4e6e8;
 }
 
 .primeButton {
-  border: 3px solid #81003C;
-  background: #81003C;
-  color: #F4E6E8;
-  
+  border: 3px solid #81003c;
+  background: #81003c;
+  color: #f4e6e8;
+
   border-radius: 3px;
 }
 
 .primeButton:hover {
-  color: #81003C;
+  color: #81003c;
   background: none;
 }
 
 .secondarySButton {
-  border: 3px solid #FF7600;
-  background-color: #FF7600;
-  color: #F4E6E8;
+  border: 3px solid #ff7600;
+  background-color: #ff7600;
+  color: #f4e6e8;
   border-radius: 3px;
 }
 
 .secondarySButton:hover {
   background: none;
-  color: #FF7600;
+  color: #ff7600;
 }
 
 /***************************************
@@ -125,12 +207,11 @@ SEARCH COMPONENT
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ***************************************/
 
-
 .controls {
   height: 100vh;
   background-color: black;
-  box-shadow: 10px 0px 23px -6px rgba(0,0,0,0.75);
-  color: #F4E6E8;
+  box-shadow: 10px 0px 23px -6px rgba(0, 0, 0, 0.75);
+  color: #f4e6e8;
 }
 
 .controlsGap {
@@ -139,6 +220,7 @@ SEARCH COMPONENT
 
 .results {
   grid-column: 2/3;
+  background-color: red;
 }
 
 .resultsGap {
@@ -161,11 +243,11 @@ ul {
 .words li::first-letter {
   font-size: 5rem;
   text-transform: uppercase;
-  color: #81003C;
+  color: #81003c;
 }
 
 .controls button {
-  color: #F4E6E8;
+  color: #f4e6e8;
 }
 
 .controls input {
@@ -173,13 +255,14 @@ ul {
   font-size: 1rem;
   line-height: 1.5rem;
   border-radius: 5px;
-  background-color: #F4E6E8;
-  border: 3px solid #F4E6E8;
+  background-color: #f4e6e8;
+  border: 3px solid #f4e6e8;
   margin-top: 10px;
 }
 
-.controls input:focus, .controls input:active {
-  border: 3px solid #FF7600;
+.controls input:focus,
+.controls input:active {
+  border: 3px solid #ff7600;
 }
 
 .generate {
@@ -197,7 +280,7 @@ ul {
 .search h1 {
   font-size: 1.8rem;
   letter-spacing: 1px;
-  margin: 50px 0 20px ;
+  margin: 50px 0 20px;
 }
 
 /***************************************
@@ -211,7 +294,7 @@ WORD SUB-COMPONENT
 .word h2 {
   display: inline;
   font-size: 4rem;
-  color: #81003C;
+  color: #81003c;
   text-transform: capitalize;
 }
 
@@ -226,7 +309,7 @@ WORD SUB-COMPONENT
   font-size: 0.75rem;
 }
 
-.chooseWord:nth-of-type(1){
+.chooseWord:nth-of-type(1) {
   margin-top: 18px;
 }
 .chooseWord:nth-of-type(2) {
@@ -242,11 +325,9 @@ DISPLAY COMPONENT
   grid-column: 2/3;
 }
 
-
-
 /***********************************  */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* MEDIA QUERIES                     */ 
+/* MEDIA QUERIES                     */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /***********************************  */
 
@@ -275,7 +356,7 @@ DISPLAY COMPONENT
 @media (max-width: 820px) {
   .controls {
     background-color: red;
-    }
+  }
 
   .controlGap {
     padding: 3.5vw;
@@ -284,7 +365,6 @@ DISPLAY COMPONENT
   .gridParent {
     grid-template-columns: 40% 60%;
   }
-
 }
 
 @media (max-width: 700px) {
