@@ -8,6 +8,7 @@ class DisplayBoard extends Component {
       database: [],
     };
   }
+  //get the saved backronyms from firebase whenever there is a change and update state
   componentDidMount() {
     const dbRef = firebase.database().ref();
     dbRef.on("value", (snapshot) => {
@@ -21,16 +22,15 @@ class DisplayBoard extends Component {
       });
     });
   }
-
-
     render () {
+        //display the saved word and backronym
         return(
             <div className="gridParent">
                 <div className="displayBoard">
                     <ul>
                         {
-                            this.state.database.map((item) => {
-                                return <li>
+                            this.state.database.map((item, index) => {
+                                return <li key={index}>
                                     <span>{item.data.word}</span>
                                     <p>{item.data.backronym}</p>
                                 </li>

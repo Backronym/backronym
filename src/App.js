@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Search from "./Search";
 import "./App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { render } from "@testing-library/react";
 import DisplayBoard from "./DisplayBoard";
 import Login from './Login';
 
