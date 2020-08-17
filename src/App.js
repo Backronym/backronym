@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import Search from "./Search";
 import "./App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import DisplayBoard from "./DisplayBoard";
-import Login from './Login';
+import { render } from "@testing-library/react";
+import userCollection from "./UserCollection";
+import Login from "./Login";
 
 // Make an input and submit button on "search" component
 //- store input value in state
@@ -20,11 +21,9 @@ class app extends Component {
   render() {
     return (
       <Router>
-
-        <Route exact path="/" component={ Login }/>
-        <Route path="/backronym" component={ Search }/>
-        <Route path="/displayboard" component={ DisplayBoard } />
-
+        <Route exact path="/" component={Login} />
+        <Route path="/backronym" component={Search} />
+        <Route path="/userCollection" component={userCollection} />
       </Router>
     );
   }
