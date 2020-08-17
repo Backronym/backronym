@@ -3,6 +3,8 @@ import Word from "./Word";
 import Frequency from './Frequency';
 import axios from "axios";
 import firebase from "./firebase";
+import Loader from './Loader';
+
 
 class Search extends Component {
   constructor() {
@@ -17,6 +19,7 @@ class Search extends Component {
       frequency: [],
       rejectCounter: 0, //index to loop through API call result array
       isGenerated: false,
+      loading: false,
     };
   }
   //////////////////////////////////////////////
@@ -36,6 +39,7 @@ class Search extends Component {
         backronym: [],
         backronymIndex: -1,
         rejectCounter: 0,
+        loading: true,
       },
       () => {
         this.apiCall(this.state.inputCharacters[0]);
@@ -49,7 +53,7 @@ class Search extends Component {
   // - if the first api call returns no "related words" in the results, we make the second API call
   apiCall = (letter, word) => {
     axios({
-      url: "https://api.datamuse.com/words?",
+      url: "https://api.datamuse.com/wrds?",
       method: "GET",
       responseType: "json",
       params: {
@@ -60,7 +64,7 @@ class Search extends Component {
     }).then((firstAPICallResult) => {
       const apiWords = firstAPICallResult.data;
       if (apiWords.length > 0) {
-        this.setState({ apiWords, isGenerated: true });
+        this.setState({ apiWords, isGenerated: true , loading: false });
       } else {
         axios({
           url: "https://api.datamuse.com/words?",
@@ -73,7 +77,7 @@ class Search extends Component {
         }).then((secondAPICallResult) => {
           const apiWords = secondAPICallResult.data;
           if (apiWords.length > 0) {
-            this.setState({ apiWords, isGenerated: true });
+            this.setState({ apiWords, isGenerated: true , loading: false });
           }
         });
       }
@@ -120,6 +124,7 @@ class Search extends Component {
       this.setState({ rejectCounter: this.state.rejectCounter + 1 }); //loop to the next word in the array
     }
   };
+
 
   handleRedo = () => {
     this.setState(
@@ -196,13 +201,22 @@ class Search extends Component {
                     />
                     : <Frequency frequency={this.state.frequency}/>
                 }
-                    <ul className="words">
-                        {
-                            this.state.backronym.map( (word) => {
-                                return <li>{word}</li>
-                            })
-                        }
+
+                {
+                  this.state.loading 
+                  // ? <div className="loadingScreen">
+                  //     <h1>Loading...</h1>
+                  //   </div>
+                  ? <Loader />
+                  : <ul className="words">
+                      {
+                        this.state.backronym.map( (word) => {
+                            return <li>{word}</li>
+                        })
+                      }
                     </ul>
+                }
+
                 </div>
             </div>
       </div>
