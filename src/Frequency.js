@@ -15,8 +15,8 @@ class Frequency extends Component {
     render() {
         return(
             <div className="frequency">
-                <span>This backronym frequency is:</span>
-                <h3>{this.state.frequencyAverage}</h3>
+                <h5>This backronym frequency is:</h5>
+                <p><span>{this.state.frequencyAverage}</span> out of a Million</p>
             </div>
         )
     }
