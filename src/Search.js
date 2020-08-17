@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Word from "./Word";
-import Frequency from './Frequency';
+import Frequency from "./Frequency";
 import axios from "axios";
 import firebase from "./firebase";
 
@@ -55,7 +55,7 @@ class Search extends Component {
       params: {
         sp: `${letter}*`,
         lc: word,
-        md: 'f',
+        md: "f",
       },
     }).then((firstAPICallResult) => {
       const apiWords = firstAPICallResult.data;
@@ -68,7 +68,7 @@ class Search extends Component {
           responseType: "json",
           params: {
             sp: `${letter}*`,
-            md: 'f',
+            md: "f",
           },
         }).then((secondAPICallResult) => {
           const apiWords = secondAPICallResult.data;
@@ -136,7 +136,7 @@ class Search extends Component {
   };
 
   handleSave = () => {
-    const dbRef = firebase.database().ref();
+    const dbRef = firebase.database().ref("userCollection");
     const backronymObject = {
       word: this.state.inputCharacters.join(""),
       backronym: this.state.backronym.join(" "),
@@ -184,27 +184,24 @@ class Search extends Component {
           </div>
         </div>
         <div className="results">
-            <div className="resultsGap">
-                {
-                !this.state.isGenerated
-                ? null
-                : this.state.backronym.length < this.state.inputCharacters.length
-                    ?<Word
-                        word={this.state.apiWords[this.state.rejectCounter].word}
-                        accept={this.accept}
-                        reject={this.reject}
-                    />
-                    : <Frequency frequency={this.state.frequency}/>
-                }
-                    <ul className="words">
-                        {
-                            this.state.backronym.map( (word) => {
-                                return <li>{word}</li>
-                            })
-                        }
-                    </ul>
-                </div>
-            </div>
+          <div className="resultsGap">
+            {!this.state.isGenerated ? null : this.state.backronym.length <
+              this.state.inputCharacters.length ? (
+              <Word
+                word={this.state.apiWords[this.state.rejectCounter].word}
+                accept={this.accept}
+                reject={this.reject}
+              />
+            ) : (
+              <Frequency frequency={this.state.frequency} />
+            )}
+            <ul className="words">
+              {this.state.backronym.map((word) => {
+                return <li>{word}</li>;
+              })}
+            </ul>
+          </div>
+        </div>
       </div>
     );
   }
