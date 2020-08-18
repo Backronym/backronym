@@ -247,10 +247,7 @@ class Search extends Component {
                           })
                       }
                     </ul>
-                }
-
-                
-                    
+                }             
                     </div>
                     <DisplayB />
                 
