@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Search from "./Search";
+import Login from "./Login";
 import "./App.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { render } from "@testing-library/react";
@@ -59,10 +60,10 @@ class App extends Component {
 
   render() {
     return (
+     
       <Router>
-        <Route exact path="/backronym" component={ App } />
-        <Route path="/backronym/generate" component={Search} />
-        <div className="gridParent">
+          <Route exact path="/backronym" component={ Login } />
+          <Route exact path="/backronym/generate" component={ Search} />
             <div className="login">
               <h1>Auth</h1>
               { 
@@ -72,9 +73,6 @@ class App extends Component {
                     <Link className="lightButton" to="/backronym/generate">START</Link>
                   </button>
               }
-              
-            </div>
-            <div className="hero"></div>
           </div>
       </Router>
     );
