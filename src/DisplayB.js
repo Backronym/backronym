@@ -23,17 +23,31 @@ class DisplayB extends Component {
         });
       }
 
+
+    remove = (dbKey) => {
+    const dbRefToRead = firebase.database().ref('displayBoard');
+    dbRefToRead.child(dbKey).remove();
+    }
+
     render(){
         return (
             <div className="display">
                 <div className="displayGap">
+                    <ul>
+                        
                     {
                         this.state.database.map((i) => {
-                        return <li><h6>{`${i.data.word}:`}</h6><p>{i.data.backronym}</p></li>
+                        return <li key={i.key} >
+                                    <button onClick={() => this.remove(i.key)}><span>&times;</span></button>
+                                    <h6>{`${i.data.word}:`}</h6>
+                                    <p>{i.data.backronym}</p>
+                                </li>
                         })
                     }
+                    <a id="display"></a>
+                    </ul>
                 </div>
-            </div>
+            </div>      
         )
     }
 }

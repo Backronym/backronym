@@ -4,6 +4,8 @@ import Frequency from './Frequency';
 import DisplayB from './DisplayB';
 import axios from "axios";
 import firebase from "./firebase";
+import Loader from './Loader';
+
 
 class Search extends Component {
   constructor() {
@@ -18,6 +20,7 @@ class Search extends Component {
       frequency: [], //ngram frequency of each word in the backronym array
       displayArray: [],
       rejectCounter: 0, //index to loop through API call result array
+      loading: false,
       isGenerated: false, //API results flag
     };
   }
@@ -46,6 +49,7 @@ class Search extends Component {
         backronym: [],
         backronymIndex: -1,
         rejectCounter: 0,
+        loading: true,
         frequency: [],
       },
       () => {
@@ -72,7 +76,7 @@ class Search extends Component {
       const apiWords = firstAPICallResult.data;
       if (apiWords.length > 0) {
         this.randomizeArray(apiWords);
-        this.setState({ apiWords, isGenerated: true });
+        this.setState({ apiWords, isGenerated: true , loading: false });
       } else {
         axios({
           url: "https://api.datamuse.com/words?",
@@ -86,7 +90,7 @@ class Search extends Component {
           const apiWords = secondAPICallResult.data;
           if (apiWords.length > 0) {
             this.randomizeArray(apiWords);
-            this.setState({ apiWords, isGenerated: true });
+            this.setState({ apiWords, isGenerated: true , loading: false });
           }
         });
       }
@@ -132,6 +136,8 @@ class Search extends Component {
             backronym: this.state.backronym.join(" "),
           };
           dbRef.push(backronymObject);
+          const display = document.getElementById('display');
+          display.scrollIntoView({ behavior: "smooth" })
         }
       } //making the API call only after state is set
     );
@@ -146,7 +152,7 @@ class Search extends Component {
     }
   };
 
-  //making an API call with the first input letter if the user chooses to redo the backronym
+  //making an API call with the first of the same input letter if the user chooses to redo the backronym
   handleRedo = () => {
     this.setState(
       {
@@ -162,7 +168,7 @@ class Search extends Component {
     );
   };
 
-  //saving the backronyms to firebase on Save
+  //saving the backronyms to firebase on Save for the usersCollection
   handleSave = () => {
     const dbRef = firebase.database().ref("userCollection");
     const backronymObject = {
@@ -196,7 +202,7 @@ class Search extends Component {
                 id="input"
                 onChange={this.handleChange}
               ></input>
-              <button className="generate lightButton">Generate</button>
+              <button type="submit" className="generate lightButton">Generate</button>
             </form>
             {/* buttons to redo and save */}
             <button
@@ -229,14 +235,22 @@ class Search extends Component {
                     />
                     : <Frequency frequency={this.state.frequency}/>
                 }
-                    {/* display the user accepted backronym word */}
-                    <ul className="words">
-                        {
-                            this.state.backronym.map( (word, index) => {
-                                return <li key={index}>{word}</li>
-                            })
-                        }
+
+                {
+                  this.state.loading 
+                  ? <Loader />
+                  : <ul className="words">
+                      {
+                        //  display the user accepted backronym word 
+                        this.state.backronym.map( (word, index) => {
+                              return <li key={index}>{word}</li>
+                          })
+                      }
                     </ul>
+                }
+
+                
+                    
                     </div>
                     <DisplayB />
                 

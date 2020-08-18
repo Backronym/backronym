@@ -111,6 +111,7 @@ body {
 ol,
 ul {
   list-style: none;
+  list-style-type: none;
 }
 blockquote,
 q {
@@ -170,7 +171,7 @@ QUICK CLASSES
   border-radius: 5px;
 }
 
-.lightButton:hover {
+.lightButton:hover, .lightButton:active, .lightButton:focus {
   border: 3px solid #ff7600;
   background-color: #ff7600;
   color: #f4e6e8;
@@ -184,7 +185,7 @@ QUICK CLASSES
   border-radius: 3px;
 }
 
-.primeButton:hover {
+.primeButton:hover, .primeButton:active, .primeButton:focus {
   color: #81003c;
   background: none;
 }
@@ -196,7 +197,7 @@ QUICK CLASSES
   border-radius: 3px;
 }
 
-.secondarySButton:hover {
+.secondarySButton:hover, .secondarySButton:active, .secondarySButton:focus {
   background: none;
   color: #ff7600;
 }
@@ -226,7 +227,8 @@ SEARCH COMPONENT
 }
 
 .resultsGap {
-  padding: 5vw;
+  padding: 2vw 3vw 0 3vw;
+  overflow: auto;
 }
 
 ul {
@@ -234,16 +236,16 @@ ul {
 }
 
 .words {
-  font-size: 3rem;
+  font-size: 2rem;
   letter-spacing: 2px;
 }
 
 .words li {
-  margin-top: -10px;
+  margin-top: -5px;
 }
 
 .words li::first-letter {
-  font-size: 5rem;
+  font-size: 3rem;
   text-transform: uppercase;
   color: #81003c;
 }
@@ -381,6 +383,11 @@ DISPLAY BOARD COMPONENT
   margin: 10px;
 }
 
+.displayGap ul {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
 .display li {
   margin-bottom: 5px;
 }
@@ -396,6 +403,15 @@ DISPLAY BOARD COMPONENT
   margin-left: 10px;
 }
 
+.display span {
+  color: #81003C;
+  display: block;
+  font-size: 0.75rem;
+}
+
+.display a {
+  display: none;
+}
 
 /***************************************
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -424,9 +440,6 @@ FREQUENCY COMPONENT
 /***********************************  */
 
 @media (max-width: 1000px) {
-  body {
-    border: 1px solid red;
-  }
 
   .gridParent {
     grid-template-columns: 35% 65%;
@@ -446,22 +459,40 @@ FREQUENCY COMPONENT
 }
 
 @media (max-width: 820px) {
-  .controls {
-    background-color: red;
-  }
 
   .controlGap {
     padding: 3.5vw;
   }
 
   .gridParent {
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 30% 70%;
   }
 }
 
 @media (max-width: 700px) {
   .gridParent {
-    grid-template-columns: 45% 55%;
+    grid-template-columns: 1fr;
+    grid-template-rows: 20vh 80vh;
+  }
+
+  .controls {
+    height: 20vh;
+    grid-column: 1/2;
+    grid-row: 1/2;
+  }
+
+  .controls button {
+    width: 30%;
+  }
+
+  .search h1 {
+    margin: 0 0 5px;
+  }
+
+  .results {
+    height: 80vh;
+    grid-column: 1/2;
+    grid-row: 2/3;
   }
 
   .words {

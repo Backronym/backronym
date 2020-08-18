@@ -1,0 +1,53 @@
+/***************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+LOGIN COMPONENT
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+***************************************/
+.login {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    background-color: #81003C;
+    position: relative;
+    z-index: 1;
+    box-shadow: 10px 0px 23px -6px rgba(0,0,0,0.75);
+}
+
+a {
+    display: block;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 25px 15px;
+}
+
+.hero {
+    grid-column: 2/3;
+    grid-row: 1/2;
+    background-image: url(./assets/backronyms.jpg);
+}
+
+.hero img {
+    height: 100%;
+    width: 100%;
+}
+
+
+/* LOADING SCREEN */
+.loadingScreen {
+  border: 16px solid #ff7600;
+  border-top: 16px solid #81003C;
+  border-radius: 50%;
+  opacity: 0.5;
+  width: 100px;
+  height: 100px;
+  animation: spin 3s linear infinite;
+  -webkit-animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  0% {transform: rotate(0deg)}
+  100% {transform: rotate(360deg)}
+}
+
+.loader h1 {
+  opacity: 0.5;
+}
