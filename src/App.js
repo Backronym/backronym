@@ -3,7 +3,6 @@ import Search from "./Search";
 import Login from "./Login";
 import "./App.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { render } from "@testing-library/react";
 import firebase from "./firebase";
 
 // Make an input and submit button on "search" component
@@ -19,61 +18,63 @@ import firebase from "./firebase";
 
 class App extends Component {
   constructor() {
-    super ();
+    super();
     this.state = {
-      user: null
-    }
+      user: null,
+    };
   }
 
   componentDidMount() {
     const auth = firebase.auth();
-    
+
     auth.onAuthStateChanged((user) => {
       if (user) {
         this.setState({ user });
-      } 
+      }
     });
   }
-  
+
   //LOGIN FUNCTION
-  login = () => {  
+  login = () => {
     const auth = firebase.auth();
     const provider = new firebase.auth.GoogleAuthProvider();
-    
-    auth.signInWithPopup(provider).then((result) =>{
+
+    auth.signInWithPopup(provider).then((result) => {
       const user = result.user;
-      this.setState({ user })
-    })
-  }
-  
+      const email = user.email;
+      console.log(email);
+      this.setState({ user });
+    });
+  };
+
   // LOGOUT FUNCTION
   logout = () => {
     const auth = firebase.auth();
-    
+
     auth.signOut().then(() => {
       this.setState({
-        user: null
-      })
-    })
-  }
-  
+        user: null,
+      });
+    });
+  };
 
   render() {
     return (
-     
       <Router>
-          <Route exact path="/backronym" component={ Login } />
-          <Route exact path="/backronym/generate" component={ Search} />
-            <div className="login">
-              <h1>Auth</h1>
-              { 
-                this.state.user
-                ? <button onClick={this.logout}>Log out</button>
-                : <button onClick={this.login}>
-                    <Link className="lightButton" to="/backronym/generate">START</Link>
-                  </button>
-              }
-          </div>
+        <div className="login">
+          <h1>Auth</h1>
+          {this.state.user ? (
+            <button onClick={this.logout}>Log out</button>
+          ) : (
+            <button onClick={this.login}>
+              <Link className="lightButton" to="/backronym/generate">
+                START
+              </Link>
+            </button>
+          )}
+        </div>
+        <Route exact path="/backronym" component={Login} />
+        <Route exact path="/backronym/generate" component={Search} />
       </Router>
     );
   }
