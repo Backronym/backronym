@@ -22,7 +22,6 @@ class Login extends Component {
     });
   }
   
-  
   //LOGIN FUNCTION
   login = () => {  
     const auth = firebase.auth();
@@ -45,8 +44,7 @@ class Login extends Component {
     })
   }
   
-  render() {
-    
+  render() {    
     return (
       <div className="gridParent">
         <div className="login">

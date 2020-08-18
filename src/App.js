@@ -23,7 +23,6 @@ class app extends Component {
       <Router>
         <Route exact path="/backronym" component={Login} />
         <Route path="/backronym/generate" component={Search} />
-        <Route path="/backronym/userCollection" component={userCollection} />
       </Router>
     );
   }
