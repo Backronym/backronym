@@ -188,7 +188,8 @@ class Search extends Component {
       <div className="search gridParent">
         <div className="controls">
           <div className="controlsGap">
-            <h1>Backronym</h1>
+            <button className="authButton primeButton" onClick={this.props.logOut}>Log Out</button>
+            <h3>Backronym</h3>
             {/* user input form */}
             <form action="submit" onSubmit={(e) => this.apiCharacters(e)}>
               <label htmlFor="input">Enter a word</label>
