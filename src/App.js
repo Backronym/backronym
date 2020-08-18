@@ -21,9 +21,9 @@ class app extends Component {
   render() {
     return (
       <Router>
-        <Route exact path="/" component={Login} />
-        <Route path="/backronym" component={Search} />
-        <Route path="/userCollection" component={userCollection} />
+        <Route exact path="/backronym" component={Login} />
+        <Route path="/backronym/generate" component={Search} />
+        <Route path="/backronym/userCollection" component={userCollection} />
       </Router>
     );
   }

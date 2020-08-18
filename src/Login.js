@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import backronyms from './assets/backronyms.jpg';
 import { auth } from 'firebase';
-import authentication from './authentication';
+import firebase from './firebase';
+
+
 
 class Login extends Component {
   constructor() {
@@ -11,16 +13,28 @@ class Login extends Component {
       user: null
     }
   }
-
+  
+  // componentDidMount() {
+  //   auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       this.setState({ user });
+  //     } 
+  //   });
+  // }
+  
+  
   //LOGIN FUNCTION
-  login = () => {
+  login = () => {  
+    const auth = firebase.auth();
+    const provider = new firebase.auth.GoogleAuthProvider();
+    
     auth.signInWithPopup(provider).then((result) =>{
       const user = result.user;
       this.setState({ user })
     })
   }
-
-  // LOGOUT FUNCTION
+    
+    // LOGOUT FUNCTION
   logout = () => {
     auth.signOut().then(() => {
       this.setState({
@@ -30,9 +44,7 @@ class Login extends Component {
   }
   
   render() {
-    const provider = new authentication.auth.GoogleAuthProvider();
-    const auth = authentication.auth();
-
+    
     return (
       <div class="gridParent">
         <div className="login">
