@@ -30,6 +30,14 @@ class Search extends Component {
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   //////////////////////////////////////////////
 
+  //randomizing the returned apiWords array using the Fisher–Yates shuffle algorithm
+  randomizeArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
   //the first API call and resetting states
   apiCharacters = (e) => {
     e.preventDefault();
@@ -67,6 +75,7 @@ class Search extends Component {
     }).then((firstAPICallResult) => {
       const apiWords = firstAPICallResult.data;
       if (apiWords.length > 0) {
+        this.randomizeArray(apiWords);
         this.setState({ apiWords, isGenerated: true , loading: false });
       } else {
         axios({
@@ -80,6 +89,7 @@ class Search extends Component {
         }).then((secondAPICallResult) => {
           const apiWords = secondAPICallResult.data;
           if (apiWords.length > 0) {
+            this.randomizeArray(apiWords);
             this.setState({ apiWords, isGenerated: true , loading: false });
           }
         });
@@ -150,6 +160,7 @@ class Search extends Component {
         backronym: [],
         backronymIndex: -1,
         rejectCounter: 0,
+        frequency: [],
       },
       () => {
         this.apiCall(this.state.inputCharacters[this.state.inputIndex]);
@@ -201,6 +212,7 @@ class Search extends Component {
               Redo
             </button>
             <button
+              disabled={this.state.backronym.length < this.state.inputCharacters.length}
               className="secondaryControlButtons secondarySButton"
               onClick={() => this.handleSave()}
             >
