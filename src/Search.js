@@ -126,6 +126,8 @@ class Search extends Component {
             backronym: this.state.backronym.join(" "),
           };
           dbRef.push(backronymObject);
+          const display = document.getElementById('display');
+          display.scrollIntoView({ behavior: "smooth" })
         }
       } //making the API call only after state is set
     );
@@ -140,7 +142,7 @@ class Search extends Component {
     }
   };
 
-  //making an API call with the first input letter if the user chooses to redo the backronym
+  //making an API call with the first of the same input letter if the user chooses to redo the backronym
   handleRedo = () => {
     this.setState(
       {
@@ -155,7 +157,7 @@ class Search extends Component {
     );
   };
 
-  //saving the backronyms to firebase on Save
+  //saving the backronyms to firebase on Save for the usersCollection
   handleSave = () => {
     const dbRef = firebase.database().ref("userCollection");
     const backronymObject = {
@@ -189,7 +191,7 @@ class Search extends Component {
                 id="input"
                 onChange={this.handleChange}
               ></input>
-              <button className="generate lightButton">Generate</button>
+              <button type="submit" className="generate lightButton">Generate</button>
             </form>
             {/* buttons to redo and save */}
             <button

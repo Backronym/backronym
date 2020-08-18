@@ -7,7 +7,7 @@ class Login extends Component {
         return (
             <div class="gridParent">
                 <div className="login">
-                    <Link className="lightButton" to="/backronym">START</Link>
+                    <Link tabIndex="0" className="lightButton" to="/backronym">START</Link>
                 </div>
                 <div className="hero">
 
