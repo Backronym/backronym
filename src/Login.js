@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import backronyms from './assets/backronyms.jpg';
 import { auth } from 'firebase';
-import firebase from './firebase';
+import firebase from 'firebase';
 
 class Login extends Component {
   constructor() {
