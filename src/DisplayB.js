@@ -44,7 +44,7 @@ class DisplayB extends Component {
                                 </li>
                         })
                     }
-                    <a id="display"></a>
+                    <p id="display"></p>
                     </ul>
                 </div>
             </div>      
