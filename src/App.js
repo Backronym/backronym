@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Search from "./Search";
 import Login from "./Login";
 import "./App.css";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { render } from "@testing-library/react";
 import firebase from "./firebase";
 
@@ -60,21 +59,13 @@ class App extends Component {
 
   render() {
     return (
-     
-      <Router>
-          <Route exact path="/backronym" component={ Login } />
-          <Route exact path="/backronym/generate" component={ Search} />
-            <div className="login">
-              <h1>Auth</h1>
+          <div className="app">
               { 
                 this.state.user
-                ? <button onClick={this.logout}>Log out</button>
-                : <button onClick={this.login}>
-                    <Link className="lightButton" to="/backronym/generate">START</Link>
-                  </button>
+                ? <Search logOut={this.logout}/>
+                : <Login logIn={this.login}/>
               }
           </div>
-      </Router>
     );
   }
 }

@@ -148,10 +148,14 @@ html {
   font-size: 125%;
 }
 
-h1,
+h1, h3,
 .title {
   font-family: "Maitree", serif;
   text-transform: uppercase;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  margin: 50px 0 20px;
+  color: #f4e6e8;
 }
 
 .gridParent {
@@ -282,15 +286,14 @@ ul {
   width: calc(50% - 5px);
 }
 
-.secondaryControlButtons:nth-of-type(2) {
+.controls .secondarySButton {
   margin-left: 10px;
 }
 
-.search h1 {
-  font-size: 1.8rem;
-  letter-spacing: 1px;
-  margin: 50px 0 20px;
+.controls .primeButton:hover {
+  color: #f4e6e8;
 }
+
 /***************************************
 LOADER STYLING
 ***************************************/
@@ -312,7 +315,7 @@ LOADER STYLING
   100% {transform: rotate(360deg)}
 }
 
-.loader h1 {
+.loader h4 {
   opacity: 0.5;
 }
 
@@ -365,10 +368,20 @@ LOGIN COMPONENT
 ***************************************/
 .login {
   background-color: #81003C;
-  z-index: 1;
-  position: fixed;
-  top: 20px;
-  left: 20px;
+}
+
+.authButton {
+  width: 40%;
+  font-size: 1rem;
+  line-height: 1.75rem;
+}
+
+.authButton:hover {
+  color: #f4e6e8;
+}
+
+.login .lightButton {
+  margin-left: 10px;
 }
 
 a {
