@@ -4,8 +4,6 @@ import backronyms from './assets/backronyms.jpg';
 import { auth } from 'firebase';
 import firebase from './firebase';
 
-
-
 class Login extends Component {
   constructor() {
     super ();
@@ -14,14 +12,15 @@ class Login extends Component {
     }
   }
   
-  // componentDidMount() {
-  //   auth.onAuthStateChanged((user) => {
-  //     if (user) {
-  //       this.setState({ user });
-  //     } 
-  //   });
-  // }
-  
+  componentDidMount() {
+    const auth = firebase.auth();
+    
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({ user });
+      } 
+    });
+  }
   
   //LOGIN FUNCTION
   login = () => {  
@@ -33,9 +32,11 @@ class Login extends Component {
       this.setState({ user })
     })
   }
-    
-    // LOGOUT FUNCTION
+  
+  // LOGOUT FUNCTION
   logout = () => {
+    const auth = firebase.auth();
+    
     auth.signOut().then(() => {
       this.setState({
         user: null
@@ -43,18 +44,19 @@ class Login extends Component {
     })
   }
   
-  render() {
-    
+  render() {    
     return (
-      <div class="gridParent">
+      <div className="gridParent">
         <div className="login">
           <h1>Auth</h1>
           { 
             this.state.user
             ? <button onClick={this.logout}>Log out</button>
-            : <button onclick={this.login}>Log in</button>
+            : <button onClick={this.login}>
+                <Link className="lightButton" to="/backronym/generate">START</Link>
+              </button>
           }
-          <Link className="lightButton" to="/backronym">START</Link>
+          
         </div>
         <div className="hero">
 

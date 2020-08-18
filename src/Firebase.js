@@ -1,4 +1,4 @@
-import firebase, { app } from "firebase/app";
+import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
 
@@ -13,13 +13,6 @@ const firebaseConfig = {
   appId: "1:125883152942:web:d2dd801b6d1586c4d43dbf"
 };
 
-// class Firebase {
-//   constructor() {
-//     app.initializeApp(firebaseConfig);
-
-//     this.auth = app.auth();
-//   }
-// }
 
 // initialize firebase
 firebase.initializeApp(firebaseConfig);
