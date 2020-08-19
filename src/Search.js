@@ -255,7 +255,9 @@ class Search extends Component {
         <div className="results">
           {/* show words from the API results until the user accepts backronyms for all letters and then pass the ngram frequencies as props to the Frequency component */}
           <div className="resultsGap">
-            {!this.state.isGenerated ? null : this.state.backronym.length <
+            {!this.state.isGenerated 
+            ? null 
+            : this.state.backronym.length <
               this.state.inputCharacters.length ? (
                 <Word
                   word={this.state.apiWords[this.state.rejectCounter].word}
