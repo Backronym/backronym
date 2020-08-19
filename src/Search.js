@@ -22,6 +22,7 @@ class Search extends Component {
       loading: false, //API loading state flag
       isGenerated: false, //API results flag
       saved: false, //flag to disable multiple saves
+      acceptPause: false, //flag to cool down the accept button
     };
   }
   //////////////////////////////////////////////
@@ -76,7 +77,7 @@ class Search extends Component {
       const apiWords = firstAPICallResult.data;
       if (apiWords.length > 4) {
         this.randomizeArray(apiWords);
-        this.setState({ apiWords, isGenerated: true, loading: false });
+        this.setState({ apiWords, isGenerated: true, loading: false, acceptPause: false, });
       } else {
         axios({
           url: "https://api.datamuse.com/words?",
@@ -90,7 +91,7 @@ class Search extends Component {
           const apiWords = secondAPICallResult.data;
           if (apiWords.length > 4) {
             this.randomizeArray(apiWords);
-            this.setState({ apiWords, isGenerated: true, loading: false });
+            this.setState({ apiWords, isGenerated: true, loading: false, acceptPause: false, });
           }
         });
       }
@@ -123,6 +124,7 @@ class Search extends Component {
         rejectCounter: 0,
         backronymIndex: this.state.backronymIndex + 1,
         inputIndex: this.state.inputIndex + 1,
+        acceptPause: true,
       },
       () => {
         this.apiCall(
@@ -173,17 +175,17 @@ class Search extends Component {
   //saving the backronyms to firebase on Save for the usersCollection
   handleSave = () => {
     if (this.state.saved === false && this.state.inputCharacters.length !== 0) {
-        const dbRef = firebase.database().ref("userCollection");
-        const backronymObject = {
-          word: this.state.inputCharacters.join(""),
-          backronym: this.state.backronym.join(" "),
-          //associating saved backronym with the logged in user's email
-          email: this.props.userEmail,
-        };
-        dbRef.push(backronymObject);
+      const dbRef = firebase.database().ref("userCollection");
+      const backronymObject = {
+        word: this.state.inputCharacters.join(""),
+        backronym: this.state.backronym.join(" "),
+        //associating saved backronym with the logged in user's email
+        email: this.props.userEmail,
+      };
+      dbRef.push(backronymObject);
     }
     this.setState({
-        saved: true
+      saved: true
     })
   };
 
@@ -255,18 +257,19 @@ class Search extends Component {
         <div className="results">
           {/* show words from the API results until the user accepts backronyms for all letters and then pass the ngram frequencies as props to the Frequency component */}
           <div className="resultsGap">
-            {!this.state.isGenerated 
-            ? null 
-            : this.state.backronym.length <
-              this.state.inputCharacters.length ? (
-                <Word
-                  word={this.state.apiWords[this.state.rejectCounter].word}
-                  accept={this.accept}
-                  reject={this.reject}
-                />
-              ) : (
-                <Frequency frequency={this.state.frequency} />
-              )}
+            {!this.state.isGenerated
+              ? null
+              : this.state.backronym.length <
+                this.state.inputCharacters.length ? (
+                  <Word
+                    word={this.state.apiWords[this.state.rejectCounter].word}
+                    accept={this.accept}
+                    reject={this.reject}
+                    pause={this.state.acceptPause}
+                  />
+                ) : (
+                  <Frequency frequency={this.state.frequency} />
+                )}
 
             {this.state.loading ? (
               <Loader />
