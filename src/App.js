@@ -29,7 +29,8 @@ class App extends Component {
 
     auth.onAuthStateChanged((user) => {
       if (user) {
-        this.setState({ user, email: user.email });
+        const userEmail = user.email ? user.email : "anon@anon.com";
+        this.setState({ user, email: userEmail });
       }
     });
   }
@@ -42,6 +43,8 @@ class App extends Component {
     auth.signInWithPopup(provider).then((result) => {
       const user = result.user;
       this.setState({ user, email: user.email });
+      console.log("setting email on login");
+      console.log(this.state.email);
     });
   };
 
@@ -56,13 +59,25 @@ class App extends Component {
     });
   };
 
+  // GUEST FUNCTION
+  guest = () => {
+    const auth = firebase.auth();
+
+    auth.signInAnonymously().catch((error) => {
+
+      this.setState({
+        email: `anon@anon.com`,
+      });
+    });
+  };
+
   render() {
     return (
       <div className="app">
         {this.state.user ? (
           <Search logOut={this.logout} userEmail={this.state.email} />
         ) : (
-          <Login logIn={this.login} />
+          <Login logIn={this.login} guest={this.guest} />
         )}
       </div>
     );

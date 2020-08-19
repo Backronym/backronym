@@ -25,21 +25,30 @@ class UserCollection extends Component {
     });
   }
 
+  remove = (dbKey) => {
+    const dbRefToRead = firebase.database().ref("userCollection");
+    dbRefToRead.child(dbKey).remove();
+  };
+
   render() {
     return (
-      <div className="gridParent">
-        <div className="userCollection">
+      <div className="userCollection display">
+        <div className="displayGap">
           <ul>
             {this.state.database
               .filter((item) => item.data.email === this.props.userEmail)
               .map((item) => {
                 return (
-                  <li>
-                    <span>{item.data.word}</span>
+                  <li key={item.key}>
+                    <button onClick={() => this.remove(item.key)}>
+                      <span>&times;</span>
+                    </button>
+                    <h6>{item.data.word}</h6>
                     <p>{item.data.backronym}</p>
                   </li>
                 );
               })}
+            <p id="display"></p>
           </ul>
         </div>
       </div>

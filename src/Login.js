@@ -1,46 +1,6 @@
 import React, { Component } from 'react';
-import firebase from './firebase';
 
 class Login extends Component {
-    constructor() {
-        super();
-        this.state = {
-            user: null
-        }
-    }
-
-    componentDidMount() {
-        const auth = firebase.auth();
-
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                this.setState({ user });
-            }
-        });
-    }
-
-    //LOGIN FUNCTION
-    login = () => {
-        const auth = firebase.auth();
-        const provider = new firebase.auth.GoogleAuthProvider();
-
-        auth.signInWithPopup(provider).then((result) => {
-            const user = result.user;
-            this.setState({ user })
-        })
-    }
-
-    // LOGOUT FUNCTION
-    logout = () => {
-        const auth = firebase.auth();
-
-        auth.signOut().then(() => {
-            this.setState({
-                user: null
-            })
-        })
-    }
-
     render() {
         return (
             <div className="gridParent">
@@ -48,11 +8,17 @@ class Login extends Component {
                     <div className="controlsGap">
                         <h1>BACKRONYM</h1>
                         <button className="authButton secondarySButton" onClick={this.props.logIn}>Log In</button>
-                        <button className="authButton lightButton">Guest</button>
+                        <button className="authButton lightButton" onClick={this.props.guest}>Guest</button>
+                        <footer>
+                            <p>Copyright &copy; 2020:</p>
+                            <a href="https://meganrantz.io/">Megan</a>
+                            <a href="http://debyucodes.com/">Deb</a>
+                            <a href="http://twitter.com/alexorer">Ashwin</a>
+                            <a href="https://rahatrahman.com/">Rahat</a>
+                        </footer>
                     </div>
                 </div>
                 <div className="hero">
-
                 </div>
 
             </div>
