@@ -438,14 +438,7 @@ LOGIN COMPONENT
 }
 
 .instructionButton {
-<<<<<<< HEAD
-  width: 80%;
-  border: 3px solid #f4e6e8;
-  color: #f4e6e8;
-  border-radius: 5px;
-=======
   width: calc(80% + 10px);
->>>>>>> master
   margin-top: 10px;
   font-size: 1rem;
   padding: 10px;
