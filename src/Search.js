@@ -18,10 +18,10 @@ class Search extends Component {
       backronym: [], //an array of user accepted words
       backronymIndex: -1, //index of last accepted word in the backronym array
       frequency: [], //ngram frequency of each word in the backronym array
-      displayArray: [],
       rejectCounter: 0, //index to loop through API call result array
-      loading: false,
+      loading: false, //API loading state flag
       isGenerated: false, //API results flag
+      saved: false, //flag to disable multiple saves
     };
   }
   //////////////////////////////////////////////
@@ -161,6 +161,7 @@ class Search extends Component {
         backronymIndex: -1,
         rejectCounter: 0,
         frequency: [],
+        saved: false,
         displayOrCollection: true,
       },
       () => {
@@ -171,16 +172,19 @@ class Search extends Component {
 
   //saving the backronyms to firebase on Save for the usersCollection
   handleSave = () => {
-    const dbRef = firebase.database().ref("userCollection");
-    const backronymObject = {
-      word: this.state.inputCharacters.join(""),
-      backronym: this.state.backronym.join(" "),
-      //associating saved backronym with the logged in user's email
-      email: this.props.userEmail,
-    };
-    console.log("before saving");
-    console.log(backronymObject);
-    dbRef.push(backronymObject);
+    if (this.state.saved === false && this.state.inputCharacters.length !== 0) {
+        const dbRef = firebase.database().ref("userCollection");
+        const backronymObject = {
+          word: this.state.inputCharacters.join(""),
+          backronym: this.state.backronym.join(" "),
+          //associating saved backronym with the logged in user's email
+          email: this.props.userEmail,
+        };
+        dbRef.push(backronymObject);
+    }
+    this.setState({
+        saved: true
+    })
   };
 
   displayOrCollection = () => {
@@ -232,9 +236,7 @@ class Search extends Component {
               Redo
             </button>
             <button
-              disabled={
-                this.state.backronym.length < this.state.inputCharacters.length
-              }
+              disabled={(this.state.backronym.length < this.state.inputCharacters.length) && (this.state.backronym.length > 0)}
               className="secondaryControlButtons secondarySButton"
               onClick={() => this.handleSave()}
             >

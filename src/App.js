@@ -16,7 +16,7 @@ import firebase from "./firebase";
 //- .map API return on page
 
 class App extends Component {
-  constructor() {
+    constructor() {
     super();
     this.state = {
       user: null,
