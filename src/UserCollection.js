@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import firebase from "./firebase";
 
 //This Component renders the user's collection of backronyms
-class userCollection extends Component {
-  constructor() {
-    super();
+class UserCollection extends Component {
+  constructor(props) {
+    super(props);
     this.state = {
       database: [],
     };
@@ -15,7 +15,7 @@ class userCollection extends Component {
     dbRef.on("value", (snapshot) => {
       const data = snapshot.val();
       const update = [];
-      //convers the database (JSON) into an array
+      //converts the database (JSON) into an array
       for (let key in data) {
         update.push({ key: key, data: data[key] });
       }
@@ -30,14 +30,16 @@ class userCollection extends Component {
       <div className="gridParent">
         <div className="userCollection">
           <ul>
-            {this.state.database.map((item) => {
-              return (
-                <li>
-                  <span>{item.data.word}</span>
-                  <p>{item.data.backronym}</p>
-                </li>
-              );
-            })}
+            {this.state.database
+              .filter((item) => item.data.email === this.props.userEmail)
+              .map((item) => {
+                return (
+                  <li>
+                    <span>{item.data.word}</span>
+                    <p>{item.data.backronym}</p>
+                  </li>
+                );
+              })}
           </ul>
         </div>
       </div>
@@ -45,4 +47,4 @@ class userCollection extends Component {
   }
 }
 
-export default userCollection;
+export default UserCollection;

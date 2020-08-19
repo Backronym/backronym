@@ -10,9 +10,8 @@ const firebaseConfig = {
   projectId: "backronym-generator",
   storageBucket: "backronym-generator.appspot.com",
   messagingSenderId: "125883152942",
-  appId: "1:125883152942:web:d2dd801b6d1586c4d43dbf"
+  appId: "1:125883152942:web:d2dd801b6d1586c4d43dbf",
 };
-
 
 // initialize firebase
 firebase.initializeApp(firebaseConfig);
