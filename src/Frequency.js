@@ -19,10 +19,8 @@ class Frequency extends Component {
       <div className="frequency">
         <h5>This backronym frequency is:</h5>
         <p>
-          <span>
-            {this.state.frequencyAverage} (occurences per million words in
-            English text)
-          </span>
+          <span>{this.state.frequencyAverage}</span> (occurences per million
+          words in English text)
         </p>
       </div>
     );

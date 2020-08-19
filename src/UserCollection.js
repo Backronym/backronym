@@ -39,6 +39,7 @@ class UserCollection extends Component {
               .filter((item) => item.data.email === this.props.userEmail)
               .map((item) => {
                 return (
+                  console.log(item.key);
                   <li key={item.key}>
                     <button onClick={() => this.remove(item.key)}>
                       <span>&times;</span>
