@@ -138,6 +138,7 @@ class Search extends Component {
             backronym: this.state.backronym.join(" "),
           };
           dbRef.push(backronymObject);
+
           const display = document.getElementById("display");
           display.scrollIntoView({ behavior: "smooth" });
         }
@@ -299,7 +300,7 @@ class Search extends Component {
             <div className="collectionButtons">
               {!this.state.displayOrCollection
                 ? (<button className="collection primeButton" onClick={() => this.displayOrCollection()}
-                >Your Collection</button>)
+                >My Collection</button>)
                 : (<button className="collection secondarySButton" onClick={() => this.displayOrCollection()}
                 >Recent</button>
                 )}
