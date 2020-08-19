@@ -18,10 +18,11 @@ class Search extends Component {
       backronym: [], //an array of user accepted words
       backronymIndex: -1, //index of last accepted word in the backronym array
       frequency: [], //ngram frequency of each word in the backronym array
-      displayArray: [],
       rejectCounter: 0, //index to loop through API call result array
-      loading: false,
+      loading: false, //API loading state flag
       isGenerated: false, //API results flag
+      saved: false, //flag to disable multiple saves
+      acceptPause: false, //flag to cool down the accept button
     };
   }
   //////////////////////////////////////////////
@@ -76,7 +77,7 @@ class Search extends Component {
       const apiWords = firstAPICallResult.data;
       if (apiWords.length > 4) {
         this.randomizeArray(apiWords);
-        this.setState({ apiWords, isGenerated: true, loading: false });
+        this.setState({ apiWords, isGenerated: true, loading: false, acceptPause: false, });
       } else {
         axios({
           url: "https://api.datamuse.com/words?",
@@ -90,7 +91,7 @@ class Search extends Component {
           const apiWords = secondAPICallResult.data;
           if (apiWords.length > 4) {
             this.randomizeArray(apiWords);
-            this.setState({ apiWords, isGenerated: true, loading: false });
+            this.setState({ apiWords, isGenerated: true, loading: false, acceptPause: false, });
           }
         });
       }
@@ -123,6 +124,7 @@ class Search extends Component {
         rejectCounter: 0,
         backronymIndex: this.state.backronymIndex + 1,
         inputIndex: this.state.inputIndex + 1,
+        acceptPause: true,
       },
       () => {
         this.apiCall(
@@ -161,6 +163,7 @@ class Search extends Component {
         backronymIndex: -1,
         rejectCounter: 0,
         frequency: [],
+        saved: false,
         displayOrCollection: true,
       },
       () => {
@@ -171,16 +174,19 @@ class Search extends Component {
 
   //saving the backronyms to firebase on Save for the usersCollection
   handleSave = () => {
-    const dbRef = firebase.database().ref("userCollection");
-    const backronymObject = {
-      word: this.state.inputCharacters.join(""),
-      backronym: this.state.backronym.join(" "),
-      //associating saved backronym with the logged in user's email
-      email: this.props.userEmail,
-    };
-    console.log("before saving");
-    console.log(backronymObject);
-    dbRef.push(backronymObject);
+    if (this.state.saved === false && this.state.inputCharacters.length !== 0) {
+      const dbRef = firebase.database().ref("userCollection");
+      const backronymObject = {
+        word: this.state.inputCharacters.join(""),
+        backronym: this.state.backronym.join(" "),
+        //associating saved backronym with the logged in user's email
+        email: this.props.userEmail,
+      };
+      dbRef.push(backronymObject);
+    }
+    this.setState({
+      saved: true
+    })
   };
 
   displayOrCollection = () => {
@@ -245,66 +251,65 @@ class Search extends Component {
               Redo
             </button>
             <button
-              disabled={
-                this.state.backronym.length < this.state.inputCharacters.length
-              }
+              disabled={(this.state.backronym.length < this.state.inputCharacters.length) && (this.state.backronym.length > 0)}
               className="secondaryControlButtons secondarySButton"
               onClick={() => this.handleSave()}
             >
               Save
             </button>
+            <footer>
+              <p>Copyright &copy; 2020:</p>
+              <a href="https://meganrantz.io/">Megan</a>
+              <a href="http://debyucodes.com/">Deb</a>
+              <a href="http://twitter.com/alexorer">Ashwin</a>
+              <a href="https://rahatrahman.com/">Rahat</a>
+            </footer>
           </div>
         </div>
         {/* Displaying the results */}
         <div className="results">
           {/* show words from the API results until the user accepts backronyms for all letters and then pass the ngram frequencies as props to the Frequency component */}
           <div className="resultsGap">
-            {!this.state.isGenerated ? null : this.state.backronym.length <
-              this.state.inputCharacters.length ? (
-              <Word
-                word={this.state.apiWords[this.state.rejectCounter].word}
-                accept={this.accept}
-                reject={this.reject}
-              />
-            ) : (
-              <Frequency frequency={this.state.frequency} />
-            )}
+            {!this.state.isGenerated
+              ? null
+              : this.state.backronym.length <
+                this.state.inputCharacters.length ? (
+                  <Word
+                    word={this.state.apiWords[this.state.rejectCounter].word}
+                    accept={this.accept}
+                    reject={this.reject}
+                    pause={this.state.acceptPause}
+                  />
+                ) : (
+                  <Frequency frequency={this.state.frequency} />
+                )}
 
             {this.state.loading ? (
               <Loader />
             ) : (
-              <ul className="words">
-                {
-                  //  display the user accepted backronym word
-                  this.state.backronym.map((word, index) => {
-                    return <li key={index}>{word}</li>;
-                  })
-                }
-              </ul>
-            )}
-            <div className="collectionButtons">
-              {!this.state.displayOrCollection ? (
-                <button
-                  className="collection primeButton"
-                  onClick={() => this.displayOrCollection()}
-                >
-                  Your Collection
-                </button>
-              ) : (
-                <button
-                  className="collection secondarySButton"
-                  onClick={() => this.displayOrCollection()}
-                >
-                  Recent
-                </button>
+                <ul className="words">
+                  {
+                    //  display the user accepted backronym word
+                    this.state.backronym.map((word, index) => {
+                      return <li key={index}>{word}</li>;
+                    })
+                  }
+                </ul>
               )}
+            <div className="collectionButtons">
+              {!this.state.displayOrCollection
+                ? (<button className="collection primeButton" onClick={() => this.displayOrCollection()}
+                >Your Collection</button>)
+                : (<button className="collection secondarySButton" onClick={() => this.displayOrCollection()}
+                >Recent</button>
+                )}
             </div>
           </div>
           {!this.state.displayOrCollection ? (
             <DisplayB />
           ) : (
-            <UserCollection userEmail={this.props.userEmail} />
-          )}
+              <UserCollection userEmail={this.props.userEmail} />
+            )}
         </div>
       </div>
     );
