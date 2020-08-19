@@ -17,87 +17,94 @@ import firebase from "./firebase";
 
 class App extends Component {
     constructor() {
-    super();
-    this.state = {
-      user: null,
-      email: null,
-      show: true,
-      showWhat: true,
+        super();
+        this.state = {
+            user: null,
+            email: null,
+            show: true,
+            showWhat: true,
+        };
+    }
+
+    componentDidMount() {
+        const auth = firebase.auth();
+
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                const userEmail = user.email ? user.email : "anon@anon.com";
+                this.setState({ user, email: userEmail });
+            }
+        });
+    }
+
+    //LOGIN FUNCTION
+    login = () => {
+        const auth = firebase.auth();
+        const provider = new firebase.auth.GoogleAuthProvider();
+
+        auth.signInWithPopup(provider).then((result) => {
+            const user = result.user;
+            this.setState({ user, email: user.email });
+        });
     };
-  }
 
-  componentDidMount() {
-    const auth = firebase.auth();
+    // LOGOUT FUNCTION
+    logout = () => {
+        const auth = firebase.auth();
 
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        const userEmail = user.email ? user.email : "anon@anon.com";
-        this.setState({ user, email: userEmail });
-      }
-    });
-  }
+        auth.signOut().then(() => {
+            this.setState({
+                user: null,
+            });
+        });
+    };
 
-  //LOGIN FUNCTION
-  login = () => {
-    const auth = firebase.auth();
-    const provider = new firebase.auth.GoogleAuthProvider();
+    // GUEST FUNCTION
+    guest = () => {
+        const auth = firebase.auth();
 
-    auth.signInWithPopup(provider).then((result) => {
-      const user = result.user;
-      this.setState({ user, email: user.email });
-    });
-  };
+        auth.signInAnonymously().catch(() => {
+            this.setState({
+                email: `anon@anon.com`,
+            });
+        });
+    };
 
-  // LOGOUT FUNCTION
-  logout = () => {
-    const auth = firebase.auth();
+    // INSTRUCTION
+    howToggle = () => {
+        const copyOfShow = !this.state.show;
 
-    auth.signOut().then(() => {
-      this.setState({
-        user: null,
-      });
-    });
-  };
+        this.setState({
+            show: copyOfShow,
+        });
+    };
 
-  // GUEST FUNCTION
-  guest = () => {
-    const auth = firebase.auth();
-    
-    auth.signInAnonymously().catch(() => {
-      this.setState ({
-        email: `anon@anon.com`,
-      })
-    })
-  }
+    whatToggle = () => {
+        const copyOfShowWhat = !this.state.showWhat;
 
-  // INSTRUCTION
-  howToggle = () => {
-    const copyOfShow = !this.state.show;
-    
-    this.setState({
-      show: copyOfShow,
-    })
-  }
+        this.setState({
+            showWhat: copyOfShowWhat,
+        });
+    };
 
-  whatToggle = () => {
-    const copyOfShowWhat = !this.state.showWhat;
-
-    this.setState({
-      showWhat: copyOfShowWhat,
-    })
-  }
-  
-  render() {
-    return (
-      <div className="app">
-        {
-          this.state.user 
-          ? (<Search logOut={this.logout} userEmail={this.state.email} />) 
-          : (<Login logIn={this.login} guest={this.guest} howToggle={this.howToggle} show={this.state.show} whatToggle={this.whatToggle} showWhat={this.state.showWhat} />)
-        }
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="app">
+                {this.state.user ? (
+                    <Search logOut={this.logout} userEmail={this.state.email} />
+                ) : (
+                        <Login
+                            logIn={this.login}
+                            guest={this.guest}
+                            howToggle={this.howToggle}
+                            show={this.state.show}
+                            whatToggle={this.whatToggle}
+                            showWhat={this.state.showWhat}
+                        />
+                    )}
+            </div>
+        );
+    }
 }
 
 export default App;
