@@ -187,8 +187,6 @@ class Search extends Component {
     this.setState({
       displayOrCollection: reverseOfDisplayOrCollection
     })
-
-    console.log('cool');
   }
 
   //////////////////////////////////////////////
