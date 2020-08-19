@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Word from "./Word";
 import Frequency from "./Frequency";
 import DisplayB from "./DisplayB";
+import UserCollection from './UserCollection';
 import axios from "axios";
 import firebase from "./firebase";
 import Loader from "./Loader";
@@ -160,6 +161,7 @@ class Search extends Component {
         backronymIndex: -1,
         rejectCounter: 0,
         frequency: [],
+        displayOrCollection: true,
       },
       () => {
         this.apiCall(this.state.inputCharacters[this.state.inputIndex]);
@@ -176,9 +178,16 @@ class Search extends Component {
       //associating saved backronym with the logged in user's email
       email: this.props.userEmail,
     };
-    console.log(backronymObject);
     dbRef.push(backronymObject);
   };
+
+
+  displayOrCollection = () => {
+    const reverseOfDisplayOrCollection = !this.state.displayOrCollection;
+    this.setState({
+      displayOrCollection: reverseOfDisplayOrCollection
+    })
+  }
 
   //////////////////////////////////////////////
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -254,8 +263,20 @@ class Search extends Component {
                 }
               </ul>
             )}
+            <div className="collectionButtons">
+
+              {
+                !this.state.displayOrCollection
+                ?<button className="collection primeButton"  onClick={() => this.displayOrCollection()}>Your Collection</button>
+                :<button className="collection secondarySButton" onClick={() => this.displayOrCollection()}>Recent</button>
+              }
+            </div>
           </div>
-          <DisplayB />
+          {
+            !this.state.displayOrCollection 
+            ?<DisplayB />
+            :<UserCollection />
+          }
         </div>
       </div>
     );
