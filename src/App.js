@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Search from "./Search";
 import Login from "./Login";
 import "./App.css";
-import { render } from "@testing-library/react";
 import firebase from "./firebase";
 
 // Make an input and submit button on "search" component
@@ -18,54 +17,54 @@ import firebase from "./firebase";
 
 class App extends Component {
   constructor() {
-    super ();
+    super();
     this.state = {
-      user: null
-    }
+      user: null,
+      email: null,
+    };
   }
 
   componentDidMount() {
     const auth = firebase.auth();
-    
+
     auth.onAuthStateChanged((user) => {
       if (user) {
-        this.setState({ user });
-      } 
+        this.setState({ user, email: user.email });
+      }
     });
   }
-  
+
   //LOGIN FUNCTION
-  login = () => {  
+  login = () => {
     const auth = firebase.auth();
     const provider = new firebase.auth.GoogleAuthProvider();
-    
-    auth.signInWithPopup(provider).then((result) =>{
+
+    auth.signInWithPopup(provider).then((result) => {
       const user = result.user;
-      this.setState({ user })
-    })
-  }
-  
+      this.setState({ user, email: user.email });
+    });
+  };
+
   // LOGOUT FUNCTION
   logout = () => {
     const auth = firebase.auth();
-    
+
     auth.signOut().then(() => {
       this.setState({
-        user: null
-      })
-    })
-  }
-  
+        user: null,
+      });
+    });
+  };
 
   render() {
     return (
-          <div className="app">
-              { 
-                this.state.user
-                ? <Search logOut={this.logout}/>
-                : <Login logIn={this.login}/>
-              }
-          </div>
+      <div className="app">
+        {this.state.user ? (
+          <Search logOut={this.logout} userEmail={this.state.email} />
+        ) : (
+          <Login logIn={this.login} />
+        )}
+      </div>
     );
   }
 }
