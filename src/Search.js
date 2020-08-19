@@ -22,6 +22,7 @@ class Search extends Component {
       loading: false, //API loading state flag
       isGenerated: false, //API results flag
       saved: false, //flag to disable multiple saves
+      acceptPause: false, //flag to cool down the accept button
     };
   }
   //////////////////////////////////////////////
@@ -76,7 +77,12 @@ class Search extends Component {
       const apiWords = firstAPICallResult.data;
       if (apiWords.length > 4) {
         this.randomizeArray(apiWords);
-        this.setState({ apiWords, isGenerated: true, loading: false });
+        this.setState({
+          apiWords,
+          isGenerated: true,
+          loading: false,
+          acceptPause: false,
+        });
       } else {
         axios({
           url: "https://api.datamuse.com/words?",
@@ -90,7 +96,12 @@ class Search extends Component {
           const apiWords = secondAPICallResult.data;
           if (apiWords.length > 4) {
             this.randomizeArray(apiWords);
-            this.setState({ apiWords, isGenerated: true, loading: false });
+            this.setState({
+              apiWords,
+              isGenerated: true,
+              loading: false,
+              acceptPause: false,
+            });
           }
         });
       }
@@ -123,6 +134,7 @@ class Search extends Component {
         rejectCounter: 0,
         backronymIndex: this.state.backronymIndex + 1,
         inputIndex: this.state.inputIndex + 1,
+        acceptPause: true,
       },
       () => {
         this.apiCall(
@@ -136,6 +148,7 @@ class Search extends Component {
             backronym: this.state.backronym.join(" "),
           };
           dbRef.push(backronymObject);
+
           const display = document.getElementById("display");
           display.scrollIntoView({ behavior: "smooth" });
         }
@@ -173,18 +186,18 @@ class Search extends Component {
   //saving the backronyms to firebase on Save for the usersCollection
   handleSave = () => {
     if (this.state.saved === false && this.state.inputCharacters.length !== 0) {
-        const dbRef = firebase.database().ref("userCollection");
-        const backronymObject = {
-          word: this.state.inputCharacters.join(""),
-          backronym: this.state.backronym.join(" "),
-          //associating saved backronym with the logged in user's email
-          email: this.props.userEmail,
-        };
-        dbRef.push(backronymObject);
+      const dbRef = firebase.database().ref("userCollection");
+      const backronymObject = {
+        word: this.state.inputCharacters.join(""),
+        backronym: this.state.backronym.join(" "),
+        //associating saved backronym with the logged in user's email
+        email: this.props.userEmail,
+      };
+      dbRef.push(backronymObject);
     }
     this.setState({
-        saved: true
-    })
+      saved: true,
+    });
   };
 
   displayOrCollection = () => {
@@ -236,7 +249,11 @@ class Search extends Component {
               Redo
             </button>
             <button
-              disabled={(this.state.backronym.length < this.state.inputCharacters.length) && (this.state.backronym.length > 0)}
+              disabled={
+                this.state.backronym.length <
+                this.state.inputCharacters.length &&
+                this.state.backronym.length > 0
+              }
               className="secondaryControlButtons secondarySButton"
               onClick={() => this.handleSave()}
             >
@@ -261,6 +278,7 @@ class Search extends Component {
                   word={this.state.apiWords[this.state.rejectCounter].word}
                   accept={this.accept}
                   reject={this.reject}
+                  pause={this.state.acceptPause}
                 />
               ) : (
                 <Frequency frequency={this.state.frequency} />
@@ -281,7 +299,7 @@ class Search extends Component {
             <div className="collectionButtons">
               {!this.state.displayOrCollection
                 ? (<button className="collection primeButton" onClick={() => this.displayOrCollection()}
-                >Your Collection</button>)
+                >My Collection</button>)
                 : (<button className="collection secondarySButton" onClick={() => this.displayOrCollection()}
                 >Recent</button>
                 )}

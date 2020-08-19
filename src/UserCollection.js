@@ -48,8 +48,8 @@ class UserCollection extends Component {
                   </li>
                 );
               })}
-            <p id="display"></p>
           </ul>
+          <p id="display"></p>
         </div>
       </div>
     );

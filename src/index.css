@@ -148,7 +148,8 @@ html {
   font-size: 125%;
 }
 
-h1, h3,
+h1,
+h3,
 .title {
   font-family: "Maitree", serif;
   text-transform: uppercase;
@@ -175,7 +176,9 @@ QUICK CLASSES
   border-radius: 5px;
 }
 
-.lightButton:hover, .lightButton:active, .lightButton:focus {
+.lightButton:hover,
+.lightButton:active,
+.lightButton:focus {
   border: 3px solid #ff7600;
   background-color: #ff7600;
   color: #f4e6e8;
@@ -189,7 +192,9 @@ QUICK CLASSES
   border-radius: 3px;
 }
 
-.primeButton:hover, .primeButton:active, .primeButton:focus {
+.primeButton:hover,
+.primeButton:active,
+.primeButton:focus {
   color: #81003c;
   background: none;
 }
@@ -201,7 +206,9 @@ QUICK CLASSES
   border-radius: 3px;
 }
 
-.secondarySButton:hover, .secondarySButton:active, .secondarySButton:focus {
+.secondarySButton:hover,
+.secondarySButton:active,
+.secondarySButton:focus {
   background: none;
   color: #ff7600;
 }
@@ -221,7 +228,7 @@ SEARCH COMPONENT
 }
 
 .controlsGap {
-  padding: 2vw; 
+  padding: 2vw;
 }
 
 .results {
@@ -312,7 +319,7 @@ ul {
 }
 
 footer {
-  position: absolute; 
+  position: absolute;
   bottom: 10px;
   left: 5px;
 }
@@ -323,7 +330,8 @@ footer a {
   margin-right: 5px;
 }
 
-footer a:hover, footer a:visited {
+footer a:hover,
+footer a:visited {
   color: #ff7600;
 }
 /***************************************
@@ -333,7 +341,7 @@ LOADER STYLING
 /* LOADING SCREEN */
 .loadingScreen {
   border: 16px solid #ff7600;
-  border-top: 16px solid #81003C;
+  border-top: 16px solid #81003c;
   border-radius: 50%;
   opacity: 0.5;
   width: 100px;
@@ -343,8 +351,12 @@ LOADER STYLING
 }
 
 @keyframes spin {
-  0% {transform: rotate(0deg)}
-  100% {transform: rotate(360deg)}
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .loader h4 {
@@ -399,7 +411,7 @@ LOGIN COMPONENT
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ***************************************/
 .login {
-  background-color: #81003C;
+  background-color: #81003c;
 }
 
 .authButton {
@@ -420,6 +432,45 @@ LOGIN COMPONENT
   grid-column: 2/3;
   grid-row: 1/2;
   background-image: url(./assets/backronyms.jpg);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 50% 50%;
+}
+
+.instructionButton {
+  width: 80%;
+  border: 3px solid #f4e6e8;
+  color: #f4e6e8;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-size: 1rem;
+  padding: 10px;
+}
+
+.instructionButton:hover {
+  border: 3px solid #ff7600;
+  background-color: #ff7600;
+}
+
+.overlay {
+  background-color: #81003c;
+  color: #f4e6e8;
+  padding: 20px;
+  opacity: 0.95;
+  margin: 40px;
+  z-index: 10;
+  line-height: 1.1rem;
+}
+
+.overlay span {
+  color: #ff7600;
+  font-weight: 800;
+}
+
+.overlay h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #ff7600;
 }
 
 /***************************************
@@ -450,7 +501,7 @@ DISPLAY BOARD COMPONENT
 
 .display h6 {
   display: inline;
-  font-weight: 600; 
+  font-weight: 600;
   text-transform: capitalize;
 }
 
@@ -460,7 +511,7 @@ DISPLAY BOARD COMPONENT
 }
 
 .display span {
-  color: #81003C;
+  color: #81003c;
   display: block;
   font-size: 0.75rem;
 }
@@ -471,11 +522,11 @@ USER COLLECTION COMPONENT
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ***************************************/
 .userCollection {
-  background-color: #81003C;
+  background-color: #81003c;
   color: #f4e6e8;
 }
 
-.userCollection button span{
+.userCollection button span {
   color: #ff7600;
 }
 /***************************************
@@ -493,7 +544,7 @@ FREQUENCY COMPONENT
 .frequency h5 {
   padding: 10px;
 }
-.frequency span{
+.frequency span {
   color: #f4e6e8;
   font-weight: 600;
   padding-left: 10px;
@@ -505,7 +556,6 @@ FREQUENCY COMPONENT
 /***********************************  */
 
 @media (max-width: 1000px) {
-
   .gridParent {
     grid-template-columns: 35% 65%;
   }
@@ -523,8 +573,14 @@ FREQUENCY COMPONENT
   }
 }
 
+@media (max-width: 920px) {
+  .frequency p,
+  .frequency h5 {
+    font-size: 0.9rem;
+  }
+}
+
 @media (max-width: 820px) {
-  
   .gridParent {
     grid-template-columns: 1fr;
     grid-template-rows: 25vh 75vh;
@@ -559,7 +615,9 @@ FREQUENCY COMPONENT
     margin: 0 10px 0 0;
   }
 
-  .generate, .secondaryControlButtons, .authButton {
+  .generate,
+  .secondaryControlButtons,
+  .authButton {
     font-size: 0.95rem;
     line-height: 1.55rem;
   }
@@ -586,17 +644,13 @@ FREQUENCY COMPONENT
     display: inline-block;
   }
 
-  .words li{
+  .words li {
     font-size: 1.5rem;
     margin-top: -2px;
   }
 
   .words li::first-letter {
     font-size: 1.75rem;
-  }
-
-  .frequency {
-    margin-top: 7px;
   }
 
   footer {
@@ -611,4 +665,23 @@ FREQUENCY COMPONENT
     margin-left: 5px;
   }
 
+}
+
+@media (max-width: 544px) {
+  .frequency p,
+  .frequency h5 {
+    font-size: 0.8rem;
+  }
+
+  .frequency {
+    margin-top: 7px;
+  }
+
+}
+
+@media (max-width: 500px) {
+  .frequency p,
+  .frequency h5 {
+    font-size: 0.8rem;
+  }
 }
