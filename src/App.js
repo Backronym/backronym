@@ -34,7 +34,7 @@ class App extends Component {
     });
   }
   
-  //LOGIN FUNCTION
+  // LOGIN FUNCTION
   login = () => {  
     const auth = firebase.auth();
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -55,6 +55,27 @@ class App extends Component {
       })
     })
   }
+
+  // GUEST FUNCTION
+  guest = () => {
+    const auth = firebase.auth();
+
+    auth.signInAnonymously().then((result) => {
+      console.log('logged in as guest');
+
+      const user = result.user
+      this.setState({
+        user: user,
+      })
+    })
+    // .catch((error) => {
+    //   const errorCode = error.code;
+    //   const errorMessahe = error.message;
+    //   console.log(errorCode);
+    //   console.log(errorMessage);
+    // })
+  }
+  
   
 
   render() {
@@ -65,6 +86,7 @@ class App extends Component {
                 ? <Search logOut={this.logout}/>
                 : <Login logIn={this.login}/>
               }
+              <button onClick={this.state.guest}>hello?</button>
           </div>
     );
   }
