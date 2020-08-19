@@ -43,8 +43,6 @@ class App extends Component {
     auth.signInWithPopup(provider).then((result) => {
       const user = result.user;
       this.setState({ user, email: user.email });
-      console.log("setting email on login");
-      console.log(this.state.email);
     });
   };
 
