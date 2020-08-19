@@ -11,38 +11,37 @@ class UserCollection extends Component {
   }
 
   componentDidMount() {
-    // const dbRef = firebase.database().ref("userCollection");
-    // dbRef.on("value", (snapshot) => {
-    //   const data = snapshot.val();
-    //   const update = [];
-    //   //converts the database (JSON) into an array
-    //   for (let key in data) {
-    //     update.push({ key: key, data: data[key] });
-    //   }
-    //   this.setState({
-    //     database: update,
-    //   });
-    // });
+    const dbRef = firebase.database().ref("userCollection");
+    dbRef.on("value", (snapshot) => {
+      const data = snapshot.val();
+      const update = [];
+      //converts the database (JSON) into an array
+      for (let key in data) {
+        update.push({ key: key, data: data[key] });
+      }
+      this.setState({
+        database: update,
+      });
+    });
   }
 
   render() {
     return (
-      // <div className="gridParent">
-      //   <div className="userCollection">
-      //     <ul>
-      //       {this.state.database.map((item) => {
-      //         return (
-      //           <li>
-      //             <span>{item.data.word}</span>
-      //             <p>{item.data.backronym}</p>
-      //           </li>
-      //         );
-      //       })}
-      //     </ul>
-      //   </div>
-      // </div>
-      <div>
-        <h1>{this.props.userEmail}</h1>
+      <div className="gridParent">
+        <div className="userCollection">
+          <ul>
+            {this.state.database
+              .filter((item) => item.data.email === this.props.userEmail)
+              .map((item) => {
+                return (
+                  <li>
+                    <span>{item.data.word}</span>
+                    <p>{item.data.backronym}</p>
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
       </div>
     );
   }
