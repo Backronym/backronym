@@ -164,6 +164,13 @@ h1, h3,
   grid-template-rows: 100vh;
 }
 
+a {
+  display: block;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin: 25px 15px;
+}
+
 /***************************************
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 QUICK CLASSES
@@ -233,6 +240,7 @@ SEARCH COMPONENT
 .resultsGap {
   padding: 2vw 3vw 0 3vw;
   overflow: auto;
+  position: relative;
 }
 
 ul {
@@ -294,6 +302,20 @@ ul {
   color: #f4e6e8;
 }
 
+.collectionButtons {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0 10px 5px 0;
+}
+
+.collection {
+  font-size: 1rem;
+}
+
+.collection:nth-of-type(2) {
+  margin-left: 10px;
+}
 /***************************************
 LOADER STYLING
 ***************************************/
@@ -443,6 +465,19 @@ DISPLAY BOARD COMPONENT
   display: none;
 }
 
+/***************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+USER COLLECTION COMPONENT
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+***************************************/
+.userCollection {
+  background-color: #81003C;
+  color: #f4e6e8;
+}
+
+.userCollection button span{
+  color: #ff7600;
+}
 /***************************************
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 FREQUENCY COMPONENT
