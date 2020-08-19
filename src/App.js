@@ -21,6 +21,7 @@ class App extends Component {
     this.state = {
       user: null,
       email: null,
+      show: true,
     };
   }
 
@@ -63,28 +64,30 @@ class App extends Component {
   // GUEST FUNCTION
   guest = () => {
     const auth = firebase.auth();
-
-    console.log(this.state.user);
     
-    auth.signInAnonymously().catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-
+    auth.signInAnonymously().catch(() => {
       this.setState ({
         email: `anon@anon.com`,
-
       })
     })
   }
-  
 
+  // INSTRUCTION
+  howToggle = () => {
+    const copyOfShow = !this.state.show;
+    
+    this.setState({
+      show: copyOfShow,
+    })
+  }
+  
   render() {
     return (
       <div className="app">
         {
           this.state.user 
           ? (<Search logOut={this.logout} userEmail={this.state.email} />) 
-          : (<Login logIn={this.login} guest={this.guest} />)
+          : (<Login logIn={this.login} guest={this.guest} howToggle={this.howToggle} show={this.state.show} />)
         }
       </div>
     );
