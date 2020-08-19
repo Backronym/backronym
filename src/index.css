@@ -148,7 +148,8 @@ html {
   font-size: 125%;
 }
 
-h1, h3,
+h1,
+h3,
 .title {
   font-family: "Maitree", serif;
   text-transform: uppercase;
@@ -175,7 +176,9 @@ QUICK CLASSES
   border-radius: 5px;
 }
 
-.lightButton:hover, .lightButton:active, .lightButton:focus {
+.lightButton:hover,
+.lightButton:active,
+.lightButton:focus {
   border: 3px solid #ff7600;
   background-color: #ff7600;
   color: #f4e6e8;
@@ -189,7 +192,9 @@ QUICK CLASSES
   border-radius: 3px;
 }
 
-.primeButton:hover, .primeButton:active, .primeButton:focus {
+.primeButton:hover,
+.primeButton:active,
+.primeButton:focus {
   color: #81003c;
   background: none;
 }
@@ -201,7 +206,9 @@ QUICK CLASSES
   border-radius: 3px;
 }
 
-.secondarySButton:hover, .secondarySButton:active, .secondarySButton:focus {
+.secondarySButton:hover,
+.secondarySButton:active,
+.secondarySButton:focus {
   background: none;
   color: #ff7600;
 }
@@ -221,7 +228,7 @@ SEARCH COMPONENT
 }
 
 .controlsGap {
-  padding: 2vw; 
+  padding: 2vw;
 }
 
 .results {
@@ -282,6 +289,15 @@ ul {
   margin: 15px 0;
 }
 
+.generateForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.generateForm .inputElements {
+  display: flex;
+  flex-direction: column;
+}
 .secondaryControlButtons {
   font-size: 1.2rem;
   padding: 3px 10px;
@@ -312,7 +328,7 @@ ul {
 }
 
 footer {
-  position: absolute; 
+  position: absolute;
   bottom: 10px;
   left: 5px;
 }
@@ -323,7 +339,8 @@ footer a {
   margin-right: 5px;
 }
 
-footer a:hover, footer a:visited {
+footer a:hover,
+footer a:visited {
   color: #ff7600;
 }
 /***************************************
@@ -333,7 +350,7 @@ LOADER STYLING
 /* LOADING SCREEN */
 .loadingScreen {
   border: 16px solid #ff7600;
-  border-top: 16px solid #81003C;
+  border-top: 16px solid #81003c;
   border-radius: 50%;
   opacity: 0.5;
   width: 100px;
@@ -343,8 +360,12 @@ LOADER STYLING
 }
 
 @keyframes spin {
-  0% {transform: rotate(0deg)}
-  100% {transform: rotate(360deg)}
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .loader h4 {
@@ -399,7 +420,7 @@ LOGIN COMPONENT
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ***************************************/
 .login {
-  background-color: #81003C;
+  background-color: #81003c;
 }
 
 .authButton {
@@ -441,7 +462,7 @@ LOGIN COMPONENT
 }
 
 .overlay {
-  background-color: #81003C;
+  background-color: #81003c;
   color: #f4e6e8;
   padding: 20px;
   opacity: 0.95;
@@ -482,7 +503,7 @@ DISPLAY BOARD COMPONENT
 
 .display h6 {
   display: inline;
-  font-weight: 600; 
+  font-weight: 600;
   text-transform: capitalize;
 }
 
@@ -492,7 +513,7 @@ DISPLAY BOARD COMPONENT
 }
 
 .display span {
-  color: #81003C;
+  color: #81003c;
   display: block;
   font-size: 0.75rem;
 }
@@ -503,11 +524,11 @@ USER COLLECTION COMPONENT
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ***************************************/
 .userCollection {
-  background-color: #81003C;
+  background-color: #81003c;
   color: #f4e6e8;
 }
 
-.userCollection button span{
+.userCollection button span {
   color: #ff7600;
 }
 /***************************************
@@ -525,11 +546,12 @@ FREQUENCY COMPONENT
 .frequency h5 {
   padding: 10px;
 }
-.frequency span{
+.frequency span {
   color: #f4e6e8;
   font-weight: 600;
   padding-left: 10px;
 }
+
 /***********************************  */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* MEDIA QUERIES                     */
@@ -537,7 +559,6 @@ FREQUENCY COMPONENT
 /***********************************  */
 
 @media (max-width: 1000px) {
-
   .gridParent {
     grid-template-columns: 35% 65%;
   }
@@ -555,8 +576,22 @@ FREQUENCY COMPONENT
   }
 }
 
-@media (max-width: 820px) {
-  
+@media (max-width: 930px) {
+  .frequency p,
+  .frequency h5 {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 880px) {
+  .inputElements {
+    padding: 12px 0px;
+  }
+
+  .controls .lightButton {
+    width: 60%;
+  }
+
   .gridParent {
     grid-template-columns: 1fr;
     grid-template-rows: 25vh 75vh;
@@ -591,7 +626,9 @@ FREQUENCY COMPONENT
     margin: 0 10px 0 0;
   }
 
-  .generate, .secondaryControlButtons, .authButton {
+  .generate,
+  .secondaryControlButtons,
+  .authButton {
     font-size: 0.95rem;
     line-height: 1.55rem;
   }
@@ -618,7 +655,7 @@ FREQUENCY COMPONENT
     display: inline-block;
   }
 
-  .words li{
+  .words li {
     font-size: 1.5rem;
     margin-top: -2px;
   }
@@ -626,7 +663,24 @@ FREQUENCY COMPONENT
   .words li::first-letter {
     font-size: 1.75rem;
   }
+}
 
+@media (max-width: 544px) {
+  .frequency p,
+  .frequency h5 {
+    font-size: 0.8rem;
+  }
+
+  .results {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .frequency p,
+  .frequency h5 {
+    font-size: 0.7rem;
+  }
   .frequency {
     margin-top: 7px;
   }
@@ -642,5 +696,4 @@ FREQUENCY COMPONENT
     padding: 10px;
     margin-left: 5px;
   }
-
 }

@@ -214,21 +214,34 @@ class Search extends Component {
             </button>
             <h3>Backronym</h3>
             {/* user input form */}
-            <form action="submit" onSubmit={(e) => this.apiCharacters(e)}>
-              <label htmlFor="input">Enter a word</label>
-              <input
-                placeholder="eg: bird"
-                type="text"
-                value={this.state.input}
-                pattern="^[A-Za-z]{3,10}$"
-                title="Enter a word between 3 and 10 characters in length"
-                required
-                id="input"
-                onChange={this.handleChange}
-              ></input>
-              <button type="submit" className="generate lightButton">
-                Generate
-              </button>
+            <form
+              className="generateForm"
+              action="submit"
+              onSubmit={(e) => this.apiCharacters(e)}
+            >
+              <div className="inputElements">
+                <div>
+                  <label htmlFor="input">Enter a word</label>
+                </div>
+                <div>
+                  <input
+                    placeholder="eg: bird"
+                    type="text"
+                    value={this.state.input}
+                    pattern="^[A-Za-z]{3,10}$"
+                    title="Enter a word between 3 and 10 characters in length"
+                    required
+                    id="input"
+                    onChange={this.handleChange}
+                  ></input>
+                </div>
+              </div>
+
+              <div>
+                <button type="submit" className="generate lightButton">
+                  Generate
+                </button>
+              </div>
             </form>
             {/* buttons to redo and save */}
             <button
