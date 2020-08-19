@@ -26,10 +26,14 @@ class App extends Component {
 
   componentDidMount() {
     const auth = firebase.auth();
-
+    
     auth.onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({ user, email: user.email });
+      if (user) { 
+        const userEmail = user.email 
+        ? user.email
+        : "anon@anon.com"
+        this.setState({ user, email: userEmail });
+        console.log(userEmail)
       }
     });
   }
@@ -51,19 +55,37 @@ class App extends Component {
 
     auth.signOut().then(() => {
       this.setState({
-        user: null,
-      });
-    });
-  };
+        user: null
+      })
+    })
+  }
+
+  // GUEST FUNCTION
+  guest = () => {
+    const auth = firebase.auth();
+
+    console.log(this.state.user);
+    
+    auth.signInAnonymously().catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+
+      this.setState ({
+        email: `anon@anon.com`,
+
+      })
+    })
+  }
+  
 
   render() {
     return (
       <div className="app">
-        {this.state.user ? (
-          <Search logOut={this.logout} userEmail={this.state.email} />
-        ) : (
-          <Login logIn={this.login} />
-        )}
+        {
+          this.state.user 
+          ? (<Search logOut={this.logout} userEmail={this.state.email} />) 
+          : (<Login logIn={this.login} guest={this.guest} />)
+        }
       </div>
     );
   }
