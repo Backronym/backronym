@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Search from "./Search";
 import Login from "./Login";
 import "./App.css";
-import { render } from "@testing-library/react";
 import firebase from "./firebase";
 
 // Make an input and submit button on "search" component
@@ -18,37 +17,42 @@ import firebase from "./firebase";
 
 class App extends Component {
   constructor() {
-    super ();
+    super();
     this.state = {
-      user: null
-    }
+      user: null,
+      email: null,
+    };
   }
 
   componentDidMount() {
     const auth = firebase.auth();
     
     auth.onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({ user });
-      } 
+      if (user) { 
+        const userEmail = user.email 
+        ? user.email
+        : "anon@anon.com"
+        this.setState({ user, email: userEmail });
+        console.log(userEmail)
+      }
     });
   }
-  
-  // LOGIN FUNCTION
-  login = () => {  
+
+  //LOGIN FUNCTION
+  login = () => {
     const auth = firebase.auth();
     const provider = new firebase.auth.GoogleAuthProvider();
-    
-    auth.signInWithPopup(provider).then((result) =>{
+
+    auth.signInWithPopup(provider).then((result) => {
       const user = result.user;
-      this.setState({ user })
-    })
-  }
-  
+      this.setState({ user, email: user.email });
+    });
+  };
+
   // LOGOUT FUNCTION
   logout = () => {
     const auth = firebase.auth();
-    
+
     auth.signOut().then(() => {
       this.setState({
         user: null
@@ -60,34 +64,29 @@ class App extends Component {
   guest = () => {
     const auth = firebase.auth();
 
-    auth.signInAnonymously().then((result) => {
-      console.log('logged in as guest');
+    console.log(this.state.user);
+    
+    auth.signInAnonymously().catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
 
-      const user = result.user
-      this.setState({
-        user: user,
+      this.setState ({
+        email: `anon@anon.com`,
+
       })
     })
-    // .catch((error) => {
-    //   const errorCode = error.code;
-    //   const errorMessahe = error.message;
-    //   console.log(errorCode);
-    //   console.log(errorMessage);
-    // })
   }
-  
   
 
   render() {
     return (
-          <div className="app">
-              { 
-                this.state.user
-                ? <Search logOut={this.logout}/>
-                : <Login logIn={this.login}/>
-              }
-              <button onClick={this.state.guest}>hello?</button>
-          </div>
+      <div className="app">
+        {
+          this.state.user 
+          ? (<Search logOut={this.logout} userEmail={this.state.email} />) 
+          : (<Login logIn={this.login} guest={this.guest} />)
+        }
+      </div>
     );
   }
 }
