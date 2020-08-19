@@ -420,11 +420,12 @@ LOGIN COMPONENT
   grid-column: 2/3;
   grid-row: 1/2;
   background-image: url(./assets/backronyms.jpg);
-  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 40% 40%;
 }
 
-.howButton,
-.what {
+.instructionButton {
   width: 80%;
   border: 3px solid #f4e6e8;
   color: #f4e6e8;
@@ -434,19 +435,23 @@ LOGIN COMPONENT
   padding: 10px;
 }
 
-.howButton:hover {
+.instructionButton:hover {
   border: 3px solid #ff7600;
   background-color: #ff7600;
 }
 
-.howToggle {
-  position: absolute;
-  background-color: white;
+.overlay {
+  background-color: #81003C;
+  color: #f4e6e8;
   padding: 20px;
-  opacity: 0.8;
-  top: 30%;
-  margin: 0 auto;
+  opacity: 0.95;
+  margin: 40px;
   z-index: 10;
+}
+
+.overlay span {
+  color: #ff7600;
+  font-weight: 800;
 }
 
 /***************************************
