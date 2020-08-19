@@ -663,6 +663,19 @@ FREQUENCY COMPONENT
   .words li::first-letter {
     font-size: 1.75rem;
   }
+
+  footer {
+    text-align: right;
+    right: 10px;
+  }
+
+  .login footer {
+    background-color: #81003c;
+    color: #f4e6e8;
+    padding: 10px;
+    margin-left: 5px;
+  }
+
 }
 
 @media (max-width: 544px) {
@@ -685,15 +698,4 @@ FREQUENCY COMPONENT
     margin-top: 7px;
   }
 
-  footer {
-    text-align: right;
-    right: 10px;
-  }
-
-  .login footer {
-    background-color: #81003c;
-    color: #f4e6e8;
-    padding: 10px;
-    margin-left: 5px;
-  }
 }

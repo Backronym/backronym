@@ -49,6 +49,7 @@ class UserCollection extends Component {
                 );
               })}
           </ul>
+          <p id="display"></p>
         </div>
       </div>
     );
