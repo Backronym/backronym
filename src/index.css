@@ -164,13 +164,6 @@ h1, h3,
   grid-template-rows: 100vh;
 }
 
-a {
-  display: block;
-  text-decoration: none;
-  padding: 10px 20px;
-  margin: 25px 15px;
-}
-
 /***************************************
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 QUICK CLASSES
@@ -224,10 +217,11 @@ SEARCH COMPONENT
   background-color: black;
   box-shadow: 10px 0px 23px -6px rgba(0, 0, 0, 0.75);
   color: #f4e6e8;
+  position: relative;
 }
 
 .controlsGap {
-  padding: 2vw;
+  padding: 2vw; 
 }
 
 .results {
@@ -315,6 +309,22 @@ ul {
 
 .collection:nth-of-type(2) {
   margin-left: 10px;
+}
+
+footer {
+  position: absolute; 
+  bottom: 10px;
+  left: 5px;
+}
+
+footer a {
+  color: #f4e6e8;
+  text-decoration: none;
+  margin-right: 5px;
+}
+
+footer a:hover, footer a:visited {
+  color: #ff7600;
 }
 /***************************************
 LOADER STYLING
@@ -406,18 +416,12 @@ LOGIN COMPONENT
   margin-left: 10px;
 }
 
-a {
-  display: block;
-  text-decoration: none;
-  padding: 10px 20px;
-  margin: 25px 15px;
-}
-
 .hero {
   grid-column: 2/3;
   grid-row: 1/2;
   background-image: url(./assets/backronyms.jpg);
 }
+
 /***************************************
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 DISPLAY BOARD COMPONENT
@@ -459,10 +463,6 @@ DISPLAY BOARD COMPONENT
   color: #81003C;
   display: block;
   font-size: 0.75rem;
-}
-
-.display a {
-  display: none;
 }
 
 /***************************************
@@ -511,15 +511,15 @@ FREQUENCY COMPONENT
   }
 
   .controlsGap {
-    padding: 3vw;
+    padding: 2vw;
   }
 
   .words {
-    font-size: 2.5rem;
+    font-size: 1.85rem;
   }
 
   .words li::first-letter {
-    font-size: 4.17rem;
+    font-size: 2.5rem;
   }
 }
 
@@ -528,6 +528,11 @@ FREQUENCY COMPONENT
   .gridParent {
     grid-template-columns: 1fr;
     grid-template-rows: 25vh 75vh;
+  }
+
+  .hero {
+    grid-column: 1/2;
+    grid-row: 2/3;
   }
 
   .controls {
@@ -566,23 +571,44 @@ FREQUENCY COMPONENT
   .secondaryControlButtons {
     margin-top: 10px;
   }
+
   .results {
     grid-column: 1/2;
     grid-row: 2/3;
     grid-template-rows: 55vh 20vh;
   }
 
-  .words {
-    font-size: 2rem;
+  .word h2 {
+    font-size: 1.75rem;
+  }
+
+  .chooseWord {
+    display: inline-block;
+  }
+
+  .words li{
+    font-size: 1.5rem;
+    margin-top: -2px;
   }
 
   .words li::first-letter {
-    font-size: 3.33rem;
+    font-size: 1.75rem;
   }
 
+  .frequency {
+    margin-top: 7px;
+  }
 
-}
+  footer {
+    text-align: right;
+    right: 10px;
+  }
 
-@media (max-width: 700px) {
+  .login footer {
+    background-color: #81003c;
+    color: #f4e6e8;
+    padding: 10px;
+    margin-left: 5px;
+  }
 
 }

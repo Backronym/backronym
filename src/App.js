@@ -63,11 +63,7 @@ class App extends Component {
   guest = () => {
     const auth = firebase.auth();
 
-    console.log(this.state.user);
-
     auth.signInAnonymously().catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
 
       this.setState({
         email: `anon@anon.com`,
