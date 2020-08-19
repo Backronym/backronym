@@ -289,15 +289,6 @@ ul {
   margin: 15px 0;
 }
 
-.generateForm {
-  display: flex;
-  flex-direction: column;
-}
-
-.generateForm .inputElements {
-  display: flex;
-  flex-direction: column;
-}
 .secondaryControlButtons {
   font-size: 1.2rem;
   padding: 3px 10px;
@@ -551,7 +542,6 @@ FREQUENCY COMPONENT
   font-weight: 600;
   padding-left: 10px;
 }
-
 /***********************************  */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* MEDIA QUERIES                     */
@@ -576,22 +566,7 @@ FREQUENCY COMPONENT
   }
 }
 
-@media (max-width: 930px) {
-  .frequency p,
-  .frequency h5 {
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 880px) {
-  .inputElements {
-    padding: 12px 0px;
-  }
-
-  .controls .lightButton {
-    width: 60%;
-  }
-
+@media (max-width: 820px) {
   .gridParent {
     grid-template-columns: 1fr;
     grid-template-rows: 25vh 75vh;
@@ -663,24 +638,7 @@ FREQUENCY COMPONENT
   .words li::first-letter {
     font-size: 1.75rem;
   }
-}
 
-@media (max-width: 544px) {
-  .frequency p,
-  .frequency h5 {
-    font-size: 0.8rem;
-  }
-
-  .results {
-    font-size: 0.8rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .frequency p,
-  .frequency h5 {
-    font-size: 0.7rem;
-  }
   .frequency {
     margin-top: 7px;
   }
