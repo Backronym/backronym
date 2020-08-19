@@ -28,7 +28,7 @@ class UserCollection extends Component {
   remove = (dbKey) => {
     const dbRefToRead = firebase.database().ref("userCollection");
     dbRefToRead.child(dbKey).remove();
-  }
+  };
 
   render() {
     return (
@@ -39,7 +39,7 @@ class UserCollection extends Component {
               .filter((item) => item.data.email === this.props.userEmail)
               .map((item) => {
                 return (
-                  <li  key={item.key}>
+                  <li key={item.key}>
                     <button onClick={() => this.remove(item.key)}>
                       <span>&times;</span>
                     </button>
@@ -48,7 +48,7 @@ class UserCollection extends Component {
                   </li>
                 );
               })}
-              <p id="display"></p>
+            <p id="display"></p>
           </ul>
         </div>
       </div>
