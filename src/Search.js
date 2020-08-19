@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Word from "./Word";
 import Frequency from "./Frequency";
 import DisplayB from "./DisplayB";
-import UserCollection from './UserCollection';
+import UserCollection from "./UserCollection";
 import axios from "axios";
 import firebase from "./firebase";
 import Loader from "./Loader";
@@ -178,16 +178,17 @@ class Search extends Component {
       //associating saved backronym with the logged in user's email
       email: this.props.userEmail,
     };
+    console.log("before saving");
+    console.log(backronymObject);
     dbRef.push(backronymObject);
   };
-
 
   displayOrCollection = () => {
     const reverseOfDisplayOrCollection = !this.state.displayOrCollection;
     this.setState({
-      displayOrCollection: reverseOfDisplayOrCollection
-    })
-  }
+      displayOrCollection: reverseOfDisplayOrCollection,
+    });
+  };
 
   //////////////////////////////////////////////
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -199,7 +200,12 @@ class Search extends Component {
       <div className="search gridParent">
         <div className="controls">
           <div className="controlsGap">
-            <button className="authButton primeButton" onClick={this.props.logOut}>Log Out</button>
+            <button
+              className="authButton primeButton"
+              onClick={this.props.logOut}
+            >
+              Log Out
+            </button>
             <h3>Backronym</h3>
             {/* user input form */}
             <form action="submit" onSubmit={(e) => this.apiCharacters(e)}>
@@ -236,10 +242,10 @@ class Search extends Component {
             </button>
             <footer>
               <p>Copyright &copy; 2020:</p>
-              <a target="_blank" href="https://meganrantz.io/">Megan</a>
-              <a target="_blank" href="http://debyucodes.com/">Deb</a>
-              <a target="_blank" href="http://twitter.com/alexorer">Ashwin</a>
-              <a target="_blank" href="https://rahatrahman.com/">Rahat</a>
+              <a href="https://meganrantz.io/">Megan</a>
+              <a href="http://debyucodes.com/">Deb</a>
+              <a href="http://twitter.com/alexorer">Ashwin</a>
+              <a href="https://rahatrahman.com/">Rahat</a>
             </footer>
           </div>
         </div>
@@ -271,19 +277,19 @@ class Search extends Component {
                 </ul>
               )}
             <div className="collectionButtons">
-
-              {
-                !this.state.displayOrCollection
-                  ? <button className="collection primeButton" onClick={() => this.displayOrCollection()}>Your Collection</button>
-                  : <button className="collection secondarySButton" onClick={() => this.displayOrCollection()}>Recent</button>
-              }
+              {!this.state.displayOrCollection
+                ? (<button className="collection primeButton" onClick={() => this.displayOrCollection()}
+                >Your Collection</button>)
+                : (<button className="collection secondarySButton" onClick={() => this.displayOrCollection()}
+                >Recent</button>
+                )}
             </div>
           </div>
-          {
-            !this.state.displayOrCollection
-              ? <DisplayB />
-              : <UserCollection />
-          }
+          {!this.state.displayOrCollection ? (
+            <DisplayB />
+          ) : (
+              <UserCollection userEmail={this.props.userEmail} />
+            )}
         </div>
       </div>
     );

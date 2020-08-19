@@ -421,6 +421,7 @@ LOGIN COMPONENT
   grid-row: 1/2;
   background-image: url(./assets/backronyms.jpg);
 }
+
 /***************************************
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 DISPLAY BOARD COMPONENT
@@ -510,15 +511,15 @@ FREQUENCY COMPONENT
   }
 
   .controlsGap {
-    padding: 3vw;
+    padding: 2vw;
   }
 
   .words {
-    font-size: 2.5rem;
+    font-size: 1.85rem;
   }
 
   .words li::first-letter {
-    font-size: 4.17rem;
+    font-size: 2.5rem;
   }
 }
 
@@ -527,6 +528,11 @@ FREQUENCY COMPONENT
   .gridParent {
     grid-template-columns: 1fr;
     grid-template-rows: 25vh 75vh;
+  }
+
+  .hero {
+    grid-column: 1/2;
+    grid-row: 2/3;
   }
 
   .controls {
@@ -598,9 +604,11 @@ FREQUENCY COMPONENT
     right: 10px;
   }
 
-
-}
-
-@media (max-width: 700px) {
+  .login footer {
+    background-color: #81003c;
+    color: #f4e6e8;
+    padding: 10px;
+    margin-left: 5px;
+  }
 
 }

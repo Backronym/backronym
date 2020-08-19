@@ -11,15 +11,14 @@ class Login extends Component {
                         <button className="authButton lightButton" onClick={this.props.guest}>Guest</button>
                         <footer>
                             <p>Copyright &copy; 2020:</p>
-                            <a target="_blank" href="https://meganrantz.io/">Megan</a>
-                            <a target="_blank" href="http://debyucodes.com/">Deb</a>
-                            <a target="_blank" href="http://twitter.com/alexorer">Ashwin</a>
-                            <a target="_blank" href="https://rahatrahman.com/">Rahat</a>
+                            <a href="https://meganrantz.io/">Megan</a>
+                            <a href="http://debyucodes.com/">Deb</a>
+                            <a href="http://twitter.com/alexorer">Ashwin</a>
+                            <a href="https://rahatrahman.com/">Rahat</a>
                         </footer>
                     </div>
                 </div>
                 <div className="hero">
-
                 </div>
 
             </div>
