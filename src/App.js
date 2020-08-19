@@ -16,7 +16,7 @@ import firebase from "./firebase";
 //- .map API return on page
 
 class App extends Component {
-  constructor() {
+    constructor() {
     super();
     this.state = {
       user: null,
@@ -27,14 +27,11 @@ class App extends Component {
 
   componentDidMount() {
     const auth = firebase.auth();
-    
+
     auth.onAuthStateChanged((user) => {
-      if (user) { 
-        const userEmail = user.email 
-        ? user.email
-        : "anon@anon.com"
+      if (user) {
+        const userEmail = user.email ? user.email : "anon@anon.com";
         this.setState({ user, email: userEmail });
-        console.log(userEmail)
       }
     });
   }
@@ -47,6 +44,8 @@ class App extends Component {
     auth.signInWithPopup(provider).then((result) => {
       const user = result.user;
       this.setState({ user, email: user.email });
+      console.log("setting email on login");
+      console.log(this.state.email);
     });
   };
 
@@ -56,10 +55,10 @@ class App extends Component {
 
     auth.signOut().then(() => {
       this.setState({
-        user: null
-      })
-    })
-  }
+        user: null,
+      });
+    });
+  };
 
   // GUEST FUNCTION
   guest = () => {
