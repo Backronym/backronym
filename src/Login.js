@@ -21,27 +21,24 @@ class Login extends Component {
                     </div>
                 </div>
                 <div className="hero">
-                  {
-                    this.props.show
-                    ? false
-                    :<div className="overlay howOverlay">
-                      Welcome to the Backronym Generator. Log in to start generating your unique backronyms by typing in an <span>input word</span> of your choice. Accept or reject the randomized word generated for the first letter of your word. Reject for another randomized word to be generated. Once youve accepted the first word for the first letter. Another word will be generated for the second letter of your <span>input word</span> based on the meaning of the first word you chose.
+                    {
+                        this.props.show
+                            ? false
+                            : <div className="overlay howOverlay">
+                                Welcome to the Backronym Generator. Log in to start generating your unique backronyms by typing in an <span>input word</span> of your choice. Accept or reject the randomized word generated for the first letter of your word. Reject for another randomized word to be generated. Once youve accepted the first word for the first letter. Another word will be generated for the second letter of your <span>input word</span> based on the meaning of the first word you chose.
                     </div>
-                  }
-                  {
-                    this.props.showWhat
-                    ? false
-                    :<div className="overlay whatOverlay">
-                      A backronym is an existing word turned into an acronym by creating an apt phrase whose initial letters match with the word, as to help remember it or offer a theory of its origin. For example: our backronym for <span>JUNO</span> is <span>J</span>oint <span>U</span>p <span>N</span>atural <span>O</span>ne.
+                    }
+                    {
+                        this.props.showWhat
+                            ? false
+                            : <div className="overlay whatOverlay">
+                                A backronym is an existing word turned into an acronym by creating an apt phrase whose initial letters match with the word, as to help remember it or offer a theory of its origin. For example: our backronym for <span>JUNO</span> is <span>J</span>oint <span>U</span>p <span>N</span>atural <span>O</span>ne.
                     </div>
-                  }
+                    }
                 </div>
-
-          
-
-        </div>
-    )
-  }
+            </div>
+        )
+    }
 }
 
 export default Login;
