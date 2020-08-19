@@ -77,7 +77,12 @@ class Search extends Component {
       const apiWords = firstAPICallResult.data;
       if (apiWords.length > 4) {
         this.randomizeArray(apiWords);
-        this.setState({ apiWords, isGenerated: true, loading: false, acceptPause: false, });
+        this.setState({
+          apiWords,
+          isGenerated: true,
+          loading: false,
+          acceptPause: false,
+        });
       } else {
         axios({
           url: "https://api.datamuse.com/words?",
@@ -91,7 +96,12 @@ class Search extends Component {
           const apiWords = secondAPICallResult.data;
           if (apiWords.length > 4) {
             this.randomizeArray(apiWords);
-            this.setState({ apiWords, isGenerated: true, loading: false, acceptPause: false, });
+            this.setState({
+              apiWords,
+              isGenerated: true,
+              loading: false,
+              acceptPause: false,
+            });
           }
         });
       }
@@ -186,8 +196,8 @@ class Search extends Component {
       dbRef.push(backronymObject);
     }
     this.setState({
-      saved: true
-    })
+      saved: true,
+    });
   };
 
   displayOrCollection = () => {
@@ -215,34 +225,21 @@ class Search extends Component {
             </button>
             <h3>Backronym</h3>
             {/* user input form */}
-            <form
-              className="generateForm"
-              action="submit"
-              onSubmit={(e) => this.apiCharacters(e)}
-            >
-              <div className="inputElements">
-                <div>
-                  <label htmlFor="input">Enter a word</label>
-                </div>
-                <div>
-                  <input
-                    placeholder="eg: bird"
-                    type="text"
-                    value={this.state.input}
-                    pattern="^[A-Za-z]{3,10}$"
-                    title="Enter a word between 3 and 10 characters in length"
-                    required
-                    id="input"
-                    onChange={this.handleChange}
-                  ></input>
-                </div>
-              </div>
-
-              <div>
-                <button type="submit" className="generate lightButton">
-                  Generate
-                </button>
-              </div>
+            <form action="submit" onSubmit={(e) => this.apiCharacters(e)}>
+              <label htmlFor="input">Enter a word</label>
+              <input
+                placeholder="eg: bird"
+                type="text"
+                value={this.state.input}
+                pattern="^[A-Za-z]{3,10}$"
+                title="Enter a word between 3 and 10 characters in length"
+                required
+                id="input"
+                onChange={this.handleChange}
+              ></input>
+              <button type="submit" className="generate lightButton">
+                Generate
+              </button>
             </form>
             {/* buttons to redo and save */}
             <button
@@ -252,7 +249,11 @@ class Search extends Component {
               Redo
             </button>
             <button
-              disabled={(this.state.backronym.length < this.state.inputCharacters.length) && (this.state.backronym.length > 0)}
+              disabled={
+                this.state.backronym.length <
+                this.state.inputCharacters.length &&
+                this.state.backronym.length > 0
+              }
               className="secondaryControlButtons secondarySButton"
               onClick={() => this.handleSave()}
             >
@@ -271,19 +272,17 @@ class Search extends Component {
         <div className="results">
           {/* show words from the API results until the user accepts backronyms for all letters and then pass the ngram frequencies as props to the Frequency component */}
           <div className="resultsGap">
-            {!this.state.isGenerated
-              ? null
-              : this.state.backronym.length <
-                this.state.inputCharacters.length ? (
-                  <Word
-                    word={this.state.apiWords[this.state.rejectCounter].word}
-                    accept={this.accept}
-                    reject={this.reject}
-                    pause={this.state.acceptPause}
-                  />
-                ) : (
-                  <Frequency frequency={this.state.frequency} />
-                )}
+            {!this.state.isGenerated ? null : this.state.backronym.length <
+              this.state.inputCharacters.length ? (
+                <Word
+                  word={this.state.apiWords[this.state.rejectCounter].word}
+                  accept={this.accept}
+                  reject={this.reject}
+                  pause={this.state.acceptPause}
+                />
+              ) : (
+                <Frequency frequency={this.state.frequency} />
+              )}
 
             {this.state.loading ? (
               <Loader />
