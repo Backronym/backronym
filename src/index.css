@@ -420,6 +420,33 @@ LOGIN COMPONENT
   grid-column: 2/3;
   grid-row: 1/2;
   background-image: url(./assets/backronyms.jpg);
+  position: relative;
+}
+
+.howButton,
+.what {
+  width: 80%;
+  border: 3px solid #f4e6e8;
+  color: #f4e6e8;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-size: 1rem;
+  padding: 10px;
+}
+
+.howButton:hover {
+  border: 3px solid #ff7600;
+  background-color: #ff7600;
+}
+
+.howToggle {
+  position: absolute;
+  background-color: white;
+  padding: 20px;
+  opacity: 0.8;
+  top: 30%;
+  margin: 0 auto;
+  z-index: 10;
 }
 
 /***************************************
