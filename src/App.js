@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Search from "./Search";
 import Login from "./Login";
+import UserCollection from "./UserCollection";
 import "./App.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import firebase from "./firebase";
@@ -21,6 +22,7 @@ class App extends Component {
     super();
     this.state = {
       user: null,
+      email: null,
     };
   }
 
@@ -29,7 +31,7 @@ class App extends Component {
 
     auth.onAuthStateChanged((user) => {
       if (user) {
-        this.setState({ user });
+        this.setState({ user, email: user.email });
       }
     });
   }
@@ -41,9 +43,7 @@ class App extends Component {
 
     auth.signInWithPopup(provider).then((result) => {
       const user = result.user;
-      const email = user.email;
-      console.log(email);
-      this.setState({ user });
+      this.setState({ user, email: user.email });
     });
   };
 
@@ -74,7 +74,21 @@ class App extends Component {
           )}
         </div>
         <Route exact path="/backronym" component={Login} />
-        <Route exact path="/backronym/generate" component={Search} />
+
+        <Route
+          exact
+          path="/backronym/generate"
+          render={() => {
+            return <Search userEmail={this.state.email} />;
+          }}
+        />
+        <Route
+          exact
+          path="/backronym/myCollection"
+          render={() => {
+            return <UserCollection userEmail={this.state.email} />;
+          }}
+        />
       </Router>
     );
   }

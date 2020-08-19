@@ -7,8 +7,8 @@ import firebase from "./firebase";
 import Loader from "./Loader";
 
 class Search extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       input: "", //user input, initially set to an empty string
       inputCharacters: [], //input string spread out
@@ -73,7 +73,7 @@ class Search extends Component {
       },
     }).then((firstAPICallResult) => {
       const apiWords = firstAPICallResult.data;
-      if (apiWords.length > 0) {
+      if (apiWords.length > 4) {
         this.randomizeArray(apiWords);
         this.setState({ apiWords, isGenerated: true, loading: false });
       } else {
@@ -87,7 +87,7 @@ class Search extends Component {
           },
         }).then((secondAPICallResult) => {
           const apiWords = secondAPICallResult.data;
-          if (apiWords.length > 0) {
+          if (apiWords.length > 4) {
             this.randomizeArray(apiWords);
             this.setState({ apiWords, isGenerated: true, loading: false });
           }
@@ -173,7 +173,10 @@ class Search extends Component {
     const backronymObject = {
       word: this.state.inputCharacters.join(""),
       backronym: this.state.backronym.join(" "),
+      //associating saved backronym with the logged in user's email
+      email: this.props.userEmail,
     };
+    console.log(backronymObject);
     dbRef.push(backronymObject);
   };
 
@@ -196,7 +199,7 @@ class Search extends Component {
                 type="text"
                 value={this.state.input}
                 pattern="^[A-Za-z]{3,10}$"
-                title="our message here"
+                title="Enter a word between 3 and 10 characters in length"
                 required
                 id="input"
                 onChange={this.handleChange}
