@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class Login extends Component {
     render() {
@@ -28,8 +28,15 @@ class Login extends Component {
                             <div className="overlay howOverlay">
                                 <h2>How to use</h2>
                                 <div>
-                                    Welcome to the Backronym Generator. Log in to start generating your unique backronyms by typing in an <span>input word</span> of your choice. Accept or reject the randomized word generated for the first letter of your word. Reject for another randomized word to be generated. Once youve accepted the first word for the first letter. Another word will be generated for the second letter of your <span>input word</span> based on the meaning of the first word you chose.
-                              </div>
+                                    Welcome to the Backronym Generator. Log in to start generating
+                                    your unique backronyms by typing in an <span>input word</span>{" "}
+                                    of your choice. Accept or reject the randomized word generated
+                                    for the first letter of your word. Reject for another randomized
+                                    word to be generated. Once you have accepted the first word for
+                                    the first letter, another word will be generated for the second
+                                    letter of your <span>input word</span> based on the meaning of
+                                    the first word you chose.
+                                </div>
                             </div>
                     }
                     {
