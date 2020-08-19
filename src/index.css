@@ -653,10 +653,6 @@ FREQUENCY COMPONENT
     font-size: 1.75rem;
   }
 
-  .frequency {
-    margin-top: 7px;
-  }
-
   footer {
     text-align: right;
     right: 10px;
@@ -668,6 +664,19 @@ FREQUENCY COMPONENT
     padding: 10px;
     margin-left: 5px;
   }
+
+}
+
+@media (max-width: 544px) {
+  .frequency p,
+  .frequency h5 {
+    font-size: 0.8rem;
+  }
+
+  .frequency {
+    margin-top: 7px;
+  }
+
 }
 
 @media (max-width: 500px) {

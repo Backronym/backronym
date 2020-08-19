@@ -148,6 +148,7 @@ class Search extends Component {
             backronym: this.state.backronym.join(" "),
           };
           dbRef.push(backronymObject);
+
           const display = document.getElementById("display");
           display.scrollIntoView({ behavior: "smooth" });
         }
@@ -250,7 +251,7 @@ class Search extends Component {
             <button
               disabled={
                 this.state.backronym.length <
-                  this.state.inputCharacters.length &&
+                this.state.inputCharacters.length &&
                 this.state.backronym.length > 0
               }
               className="secondaryControlButtons secondarySButton"
@@ -273,51 +274,42 @@ class Search extends Component {
           <div className="resultsGap">
             {!this.state.isGenerated ? null : this.state.backronym.length <
               this.state.inputCharacters.length ? (
-              <Word
-                word={this.state.apiWords[this.state.rejectCounter].word}
-                accept={this.accept}
-                reject={this.reject}
-                pause={this.state.acceptPause}
-              />
-            ) : (
-              <Frequency frequency={this.state.frequency} />
-            )}
+                <Word
+                  word={this.state.apiWords[this.state.rejectCounter].word}
+                  accept={this.accept}
+                  reject={this.reject}
+                  pause={this.state.acceptPause}
+                />
+              ) : (
+                <Frequency frequency={this.state.frequency} />
+              )}
 
             {this.state.loading ? (
               <Loader />
             ) : (
-              <ul className="words">
-                {
-                  //  display the user accepted backronym word
-                  this.state.backronym.map((word, index) => {
-                    return <li key={index}>{word}</li>;
-                  })
-                }
-              </ul>
-            )}
-            <div className="collectionButtons">
-              {!this.state.displayOrCollection ? (
-                <button
-                  className="collection primeButton"
-                  onClick={() => this.displayOrCollection()}
-                >
-                  Your Collection
-                </button>
-              ) : (
-                <button
-                  className="collection secondarySButton"
-                  onClick={() => this.displayOrCollection()}
-                >
-                  Recent
-                </button>
+                <ul className="words">
+                  {
+                    //  display the user accepted backronym word
+                    this.state.backronym.map((word, index) => {
+                      return <li key={index}>{word}</li>;
+                    })
+                  }
+                </ul>
               )}
+            <div className="collectionButtons">
+              {!this.state.displayOrCollection
+                ? (<button className="collection primeButton" onClick={() => this.displayOrCollection()}
+                >My Collection</button>)
+                : (<button className="collection secondarySButton" onClick={() => this.displayOrCollection()}
+                >Recent</button>
+                )}
             </div>
           </div>
           {!this.state.displayOrCollection ? (
             <DisplayB />
           ) : (
-            <UserCollection userEmail={this.props.userEmail} />
-          )}
+              <UserCollection userEmail={this.props.userEmail} />
+            )}
         </div>
       </div>
     );
