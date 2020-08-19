@@ -52,6 +52,7 @@ class Search extends Component {
         rejectCounter: 0,
         loading: true,
         frequency: [],
+        saved: false,
       },
       () => {
         this.apiCall(this.state.inputCharacters[0]);
@@ -194,10 +195,10 @@ class Search extends Component {
         email: this.props.userEmail,
       };
       dbRef.push(backronymObject);
+      this.setState({
+        saved: true,
+      });
     }
-    this.setState({
-      saved: true,
-    });
   };
 
   displayOrCollection = () => {
