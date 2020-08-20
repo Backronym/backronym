@@ -684,7 +684,7 @@ FREQUENCY COMPONENT
 
 }
 
-@media (max-width: 544px) {
+@media (max-width: 570px) {
   .frequency p,
   .frequency h5 {
     font-size: 0.8rem;
@@ -692,6 +692,10 @@ FREQUENCY COMPONENT
 
   .frequency {
     margin-top: 7px;
+  } 
+  
+  footer {
+    display: none;
   }
 
 }
@@ -706,7 +710,5 @@ FREQUENCY COMPONENT
     width: 50%;
   }
 
-  footer {
-    display: none;
-  }
+ 
 }
