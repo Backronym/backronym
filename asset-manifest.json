@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/backronym/static/css/main.eef0f61a.chunk.css",
+    "main.css": "/backronym/static/css/main.6e64d75e.chunk.css",
     "main.js": "/backronym/static/js/main.88c8d6e4.chunk.js",
     "main.js.map": "/backronym/static/js/main.88c8d6e4.chunk.js.map",
     "runtime-main.js": "/backronym/static/js/runtime-main.82208d48.js",
@@ -8,16 +8,16 @@
     "static/js/2.46e1c249.chunk.js": "/backronym/static/js/2.46e1c249.chunk.js",
     "static/js/2.46e1c249.chunk.js.map": "/backronym/static/js/2.46e1c249.chunk.js.map",
     "index.html": "/backronym/index.html",
-    "precache-manifest.408fa87be3bd7f42f23584754d0ea938.js": "/backronym/precache-manifest.408fa87be3bd7f42f23584754d0ea938.js",
+    "precache-manifest.0b670e88bc9d70e643b8b426882b489b.js": "/backronym/precache-manifest.0b670e88bc9d70e643b8b426882b489b.js",
     "service-worker.js": "/backronym/service-worker.js",
-    "static/css/main.eef0f61a.chunk.css.map": "/backronym/static/css/main.eef0f61a.chunk.css.map",
+    "static/css/main.6e64d75e.chunk.css.map": "/backronym/static/css/main.6e64d75e.chunk.css.map",
     "static/js/2.46e1c249.chunk.js.LICENSE.txt": "/backronym/static/js/2.46e1c249.chunk.js.LICENSE.txt",
     "static/media/index.css": "/backronym/static/media/backronyms.7fa96c9a.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.82208d48.js",
     "static/js/2.46e1c249.chunk.js",
-    "static/css/main.eef0f61a.chunk.css",
+    "static/css/main.6e64d75e.chunk.css",
     "static/js/main.88c8d6e4.chunk.js"
   ]
 }
