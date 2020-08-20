@@ -5,10 +5,11 @@ class DisplayB extends Component {
   constructor() {
     super();
     this.state = {
-      database: [],
+      database: [],//return of the firebase public backronym list
     };
   }
 
+  // connect to public side of the database to pull all backronyms made by anyone as soon as they are finished, not waiting for save button
   componentDidMount() {
     const dbRef = firebase.database().ref("displayBoard");
     dbRef.on("value", (snapshot) => {
@@ -23,6 +24,7 @@ class DisplayB extends Component {
     });
   }
 
+  //using the firebase unique key serial, deleting a child of the display board object in the database to remove a backronym on button click
   remove = (dbKey) => {
     const dbRefToRead = firebase.database().ref("displayBoard");
     dbRefToRead.child(dbKey).remove();
@@ -34,7 +36,9 @@ class DisplayB extends Component {
         <div className="displayGap">
           <ul>
             {this.state.database.map((i) => {
-              return (
+              return (//mapping entire database object onto the display board component
+                /// to be displayed in reverse so most recent is at the top. p tag will anchor the component, with a scroll function 
+                /// the list will always remain at the top for a live feed feel. 
                 <li key={i.key}>
                   <button onClick={() => this.remove(i.key)}>
                     <span>&times;</span>

@@ -671,8 +671,15 @@ FREQUENCY COMPONENT
   }
 
   .what {
-    margin: -10px 0 0 10px;
+    margin: 10px 0 0 10px;
     width: 40%;
+  }
+
+  .hero {
+    grid-template-rows: 1fr 1fr 70px;
+  }
+  .overlay {
+    font-size: 0.8rem;
   }
 
 }
