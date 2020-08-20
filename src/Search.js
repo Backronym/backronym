@@ -11,13 +11,13 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: "", //user input, initially set to an empty string
-      inputCharacters: [], //input string spread out
-      inputIndex: 0, //tracking the index of inputCharacters
+      input: "", //user input, initially set to an empty string to clear it out 
+      inputCharacters: [], //input string spread out into an array so the individual letters can be called in the api
+      inputIndex: 0, //tracking the index of inputCharacters allowing us to move onto the next letter in the api call 
       apiWords: [], //words that are returned from the API
       backronym: [], //an array of user accepted words
       backronymIndex: -1, //index of last accepted word in the backronym array
-      frequency: [], //ngram frequency of each word in the backronym array
+      frequency: [], //n-gram frequency of each word in the backronym array
       rejectCounter: 0, //index to loop through API call result array
       loading: false, //API loading state flag
       isGenerated: false, //API results flag
@@ -176,7 +176,6 @@ class Search extends Component {
         rejectCounter: 0,
         frequency: [],
         saved: false,
-        displayOrCollection: true,
       },
       () => {
         this.apiCall(this.state.inputCharacters[this.state.inputIndex]);
