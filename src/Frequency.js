@@ -7,7 +7,7 @@ class Frequency extends Component {
       frequencyAverage: 0,
     };
   }
-  //calculate the sum of the ngram frequencies and set the average
+  //calculate the sum of the n-gram frequencies and set the average
   componentDidMount() {
     const arrAvg = (arr) => arr.reduce((a, b) => a + b, 0) / arr.length;
     const freqAvg = Math.round(arrAvg(this.props.frequency));
@@ -15,7 +15,7 @@ class Frequency extends Component {
   }
   render() {
     return (
-      // display the ngram frequency
+      // display the n-gram frequency
       <div className="frequency">
         <h5>This backronym frequency is:</h5>
         <p>

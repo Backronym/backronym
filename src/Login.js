@@ -46,7 +46,11 @@ class Login extends Component {
                             <div className="overlay whatOverlay">
                                 <h2>What is a backronym?</h2>
                                 <div>
-                                    A backronym is an existing word turned into an acronym by creating an apt phrase whose initial letters match with the word, as to help remember it or offer a theory of its origin. For example: our backronym for <span>JUNO</span> is <span>J</span>oint <span>U</span>p <span>N</span>atural <span>O</span>ne.
+                                    A backronym is an existing word turned into an acronym by creating
+                                    an apt phrase whose initial letters match with the word, as to help
+                                    remember it or offer a theory of its origin. For example: our backronym for
+                                    <span>JUNO</span> is <span>J</span>oint <span>U</span>p <span>N</span>atural
+                                    <span>O</span>ne.
                             </div>
                             </div>
                     }

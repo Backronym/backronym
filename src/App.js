@@ -20,12 +20,13 @@ class App extends Component {
     super();
     this.state = {
       user: null,
-      email: null,
-      show: true,
-      showWhat: true,
+      email: null, 
+      show: true, // instructions toggle 1
+      showWhat: true, // instructions toggle 2
     };
   }
 
+  // Keep user logged in to Google authentication
   componentDidMount() {
     const auth = firebase.auth();
 
@@ -37,7 +38,7 @@ class App extends Component {
     });
   }
 
-  //LOGIN FUNCTION
+  //LOGIN FUNCTION - Login of google authentication from firebase
   login = () => {
     const auth = firebase.auth();
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -48,7 +49,7 @@ class App extends Component {
     });
   };
 
-  // LOGOUT FUNCTION
+  // LOGOUT FUNCTION - logout of google authentication from firebase
   logout = () => {
     const auth = firebase.auth();
 
@@ -59,7 +60,7 @@ class App extends Component {
     });
   };
 
-  // GUEST FUNCTION
+  // GUEST FUNCTION - be able to use the app without a google account
   guest = () => {
     const auth = firebase.auth();
 
@@ -70,7 +71,7 @@ class App extends Component {
     });
   };
 
-  // INSTRUCTION
+  // INSTRUCTION -- toggle showing the instructions by updating boolean in state
   howToggle = () => {
     const copyOfShow = !this.state.show;
 
@@ -79,6 +80,7 @@ class App extends Component {
     });
   };
 
+  // INSTRUCTION -- toggle showing the instructions by updating boolean in state
   whatToggle = () => {
     const copyOfShowWhat = !this.state.showWhat;
 
@@ -87,6 +89,7 @@ class App extends Component {
     });
   };
 
+  //Render either the search for the login in screen depending on user login status
   render() {
     return (
       <div className="app">
