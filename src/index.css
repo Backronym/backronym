@@ -584,7 +584,7 @@ FREQUENCY COMPONENT
 
   .gridParent {
     grid-template-columns: 1fr;
-    grid-template-rows: 25vh 75vh;
+    grid-template-rows: 225px 75vh;
   }
 
   .hero {
@@ -593,7 +593,7 @@ FREQUENCY COMPONENT
   }
 
   .controls {
-    height: 25vh;
+    height: 225px;
     grid-column: 1/2;
     grid-row: 1/2;
   }
@@ -682,6 +682,9 @@ FREQUENCY COMPONENT
     font-size: 0.8rem;
   }
 
+  footer {
+    display: none;
+  }
 }
 
 @media (max-width: 570px) {
@@ -693,10 +696,8 @@ FREQUENCY COMPONENT
   .frequency {
     margin-top: 7px;
   } 
-  
-  footer {
-    display: none;
-  }
+
+ 
 
 }
 
@@ -709,6 +710,4 @@ FREQUENCY COMPONENT
   .what {
     width: 50%;
   }
-
- 
 }
