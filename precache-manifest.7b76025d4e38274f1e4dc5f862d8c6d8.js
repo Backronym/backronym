@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "35bc619a558cfc0eab563226e59c2ec4",
+    "revision": "242542eabb5566d12ed66fc68eb8691c",
     "url": "/backronym/index.html"
   },
   {
-    "revision": "2515be71040cddfabd8d",
-    "url": "/backronym/static/css/main.4c2ec1ed.chunk.css"
+    "revision": "3994a4e0b93389855622",
+    "url": "/backronym/static/css/main.68d5a799.chunk.css"
   },
   {
     "revision": "911869a15e01015c809d",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/backronym/static/js/2.46e1c249.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "2515be71040cddfabd8d",
-    "url": "/backronym/static/js/main.8eb30c86.chunk.js"
+    "revision": "3994a4e0b93389855622",
+    "url": "/backronym/static/js/main.ec8cc891.chunk.js"
   },
   {
     "revision": "84aff303e48d5462833b",
