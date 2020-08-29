@@ -16,95 +16,98 @@ import firebase from "./firebase";
 //- .map API return on page
 
 class App extends Component {
-    constructor() {
-        super();
-        this.state = {
-            user: null,
-            email: null,
-            show: true,
-            showWhat: true,
-        };
-    }
-
-    componentDidMount() {
-        const auth = firebase.auth();
-
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                const userEmail = user.email ? user.email : "anon@anon.com";
-                this.setState({ user, email: userEmail });
-            }
-        });
-    }
-
-    //LOGIN FUNCTION
-    login = () => {
-        const auth = firebase.auth();
-        const provider = new firebase.auth.GoogleAuthProvider();
-
-        auth.signInWithPopup(provider).then((result) => {
-            const user = result.user;
-            this.setState({ user, email: user.email });
-        });
+  constructor() {
+    super();
+    this.state = {
+      user: null,
+      email: null, 
+      show: true, // instructions toggle 1
+      showWhat: true, // instructions toggle 2
     };
+  }
 
-    // LOGOUT FUNCTION
-    logout = () => {
-        const auth = firebase.auth();
+  // Keep user logged in to Google authentication
+  componentDidMount() {
+    const auth = firebase.auth();
 
-        auth.signOut().then(() => {
-            this.setState({
-                user: null,
-            });
-        });
-    };
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        const userEmail = user.email ? user.email : "anon@anon.com";
+        this.setState({ user, email: userEmail });
+      }
+    });
+  }
 
-    // GUEST FUNCTION
-    guest = () => {
-        const auth = firebase.auth();
+  //LOGIN FUNCTION - Login of google authentication from firebase
+  login = () => {
+    const auth = firebase.auth();
+    const provider = new firebase.auth.GoogleAuthProvider();
 
-        auth.signInAnonymously().catch(() => {
-            this.setState({
-                email: `anon@anon.com`,
-            });
-        });
-    };
+    auth.signInWithPopup(provider).then((result) => {
+      const user = result.user;
+      this.setState({ user, email: user.email });
+    });
+  };
 
-    // INSTRUCTION
-    howToggle = () => {
-        const copyOfShow = !this.state.show;
+  // LOGOUT FUNCTION - logout of google authentication from firebase
+  logout = () => {
+    const auth = firebase.auth();
 
-        this.setState({
-            show: copyOfShow,
-        });
-    };
+    auth.signOut().then(() => {
+      this.setState({
+        user: null,
+      });
+    });
+  };
 
-    whatToggle = () => {
-        const copyOfShowWhat = !this.state.showWhat;
+  // GUEST FUNCTION - be able to use the app without a google account
+  guest = () => {
+    const auth = firebase.auth();
 
-        this.setState({
-            showWhat: copyOfShowWhat,
-        });
-    };
+    auth.signInAnonymously().catch(() => {
+      this.setState({
+        email: `anon@anon.com`,
+      });
+    });
+  };
 
-    render() {
-        return (
-            <div className="app">
-                {this.state.user ? (
-                    <Search logOut={this.logout} userEmail={this.state.email} />
-                ) : (
-                        <Login
-                            logIn={this.login}
-                            guest={this.guest}
-                            howToggle={this.howToggle}
-                            show={this.state.show}
-                            whatToggle={this.whatToggle}
-                            showWhat={this.state.showWhat}
-                        />
-                    )}
-            </div>
-        );
-    }
+  // INSTRUCTION -- toggle showing the instructions by updating boolean in state
+  howToggle = () => {
+    const copyOfShow = !this.state.show;
+
+    this.setState({
+      show: copyOfShow,
+    });
+  };
+
+  // INSTRUCTION -- toggle showing the instructions by updating boolean in state
+  whatToggle = () => {
+    const copyOfShowWhat = !this.state.showWhat;
+
+    this.setState({
+      showWhat: copyOfShowWhat,
+    });
+  };
+
+  //Render either the search for the login in screen depending on user login status
+  render() {
+    return (
+      <div className="app">
+        {this.state.user ? (
+          <Search logOut={this.logout} userEmail={this.state.email} />
+        ) : (
+          <Login
+            logIn={this.login}
+            guest={this.guest}
+            howToggle={this.howToggle}
+            show={this.state.show}
+            whatToggle={this.whatToggle}
+            showWhat={this.state.showWhat}
+          />
+        )}
+      </div>
+    );
+  }
 }
 
 export default App;

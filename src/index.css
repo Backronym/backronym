@@ -587,7 +587,7 @@ FREQUENCY COMPONENT
 >>>>>>> master
   .gridParent {
     grid-template-columns: 1fr;
-    grid-template-rows: 25vh 75vh;
+    grid-template-rows: 225px 75vh;
   }
 
   .hero {
@@ -596,7 +596,7 @@ FREQUENCY COMPONENT
   }
 
   .controls {
-    height: 25vh;
+    height: 225px;
     grid-column: 1/2;
     grid-row: 1/2;
   }
@@ -674,13 +674,23 @@ FREQUENCY COMPONENT
   }
 
   .what {
-    margin: -10px 0 0 10px;
+    margin: 10px 0 0 10px;
     width: 40%;
   }
 
+  .hero {
+    grid-template-rows: 1fr 1fr 70px;
+  }
+  .overlay {
+    font-size: 0.8rem;
+  }
+
+  footer {
+    display: none;
+  }
 }
 
-@media (max-width: 544px) {
+@media (max-width: 570px) {
   .frequency p,
   .frequency h5 {
     font-size: 0.8rem;
@@ -688,7 +698,9 @@ FREQUENCY COMPONENT
 
   .frequency {
     margin-top: 7px;
-  }
+  } 
+
+ 
 
 }
 
@@ -700,10 +712,6 @@ FREQUENCY COMPONENT
 
   .what {
     width: 50%;
-  }
-
-  footer {
-    display: none;
   }
 }
 

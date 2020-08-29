@@ -5,18 +5,10 @@ const Word = (props) => {
     //button to trigger the accept and reject functions passed as prop on click
     <div className="word">
       <div>
-        <button
-          className="chooseWord primeButton"
-          disabled={props.pause}
-          onClick={props.reject}
-        >
+        <button className="chooseWord primeButton" disabled={props.pause} onClick={props.reject}>
           Reject
         </button>
-        <button
-          className="chooseWord secondarySButton"
-          disabled={props.pause}
-          onClick={props.accept}
-        >
+        <button className="chooseWord secondarySButton" disabled={props.pause} onClick={props.accept}>
           Accept
         </button>
       </div>

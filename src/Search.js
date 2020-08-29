@@ -11,13 +11,13 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: "", //user input, initially set to an empty string
-      inputCharacters: [], //input string spread out
-      inputIndex: 0, //tracking the index of inputCharacters
+      input: "", //user input, initially set to an empty string to clear it out 
+      inputCharacters: [], //input string spread out into an array so the individual letters can be called in the api
+      inputIndex: 0, //tracking the index of inputCharacters allowing us to move onto the next letter in the api call 
       apiWords: [], //words that are returned from the API
       backronym: [], //an array of user accepted words
       backronymIndex: -1, //index of last accepted word in the backronym array
-      frequency: [], //ngram frequency of each word in the backronym array
+      frequency: [], //n-gram frequency of each word in the backronym array
       rejectCounter: 0, //index to loop through API call result array
       loading: false, //API loading state flag
       isGenerated: false, //API results flag
@@ -60,7 +60,7 @@ class Search extends Component {
     );
   };
 
-  //This function can call the API upto two times:
+  //This function can call the API up to two times:
   // - the first time passing a "starting letter" as well as a word
   //- the second time passing just a "starting letter"
   // - if the first api call returns no "related words" in the results, we make the second API call
@@ -121,7 +121,7 @@ class Search extends Component {
     //pushing the user selected word to a copy of the backronym array
     const copyBackronym = this.state.backronym; //array of accepted words
     copyBackronym.push(this.state.apiWords[this.state.rejectCounter].word);
-    //parsing the ngram frequecny value from string to a float in order to do calculations
+    //parsing the N-gram frequency value from string to a float in order to do calculations
     const copyFrequency = this.state.frequency;
     const wordFrequency = this.state.apiWords[this.state.rejectCounter].tags[0];
     const frequencyNum = parseFloat(wordFrequency.substring(2));
@@ -149,7 +149,7 @@ class Search extends Component {
             backronym: this.state.backronym.join(" "),
           };
           dbRef.push(backronymObject);
-
+          //stay at the top to get a live-feed interactive feel
           const display = document.getElementById("display");
           display.scrollIntoView({ behavior: "smooth" });
         }
@@ -176,7 +176,6 @@ class Search extends Component {
         rejectCounter: 0,
         frequency: [],
         saved: false,
-        displayOrCollection: true,
       },
       () => {
         this.apiCall(this.state.inputCharacters[this.state.inputIndex]);
@@ -218,10 +217,7 @@ class Search extends Component {
       <div className="search gridParent">
         <div className="controls">
           <div className="controlsGap">
-            <button
-              className="authButton primeButton"
-              onClick={this.props.logOut}
-            >
+            <button className="authButton primeButton" onClick={this.props.logOut}>
               Log Out
             </button>
             <h3>Backronym</h3>
@@ -243,21 +239,11 @@ class Search extends Component {
               </button>
             </form>
             {/* buttons to redo and save */}
-            <button
-              className="secondaryControlButtons primeButton"
-              onClick={() => this.handleRedo()}
-            >
+            <button className="secondaryControlButtons primeButton" onClick={() => this.handleRedo()}>
               Redo
             </button>
-            <button
-              disabled={
-                this.state.backronym.length <
-                  this.state.inputCharacters.length &&
-                this.state.backronym.length > 0
-              }
-              className="secondaryControlButtons secondarySButton"
-              onClick={() => this.handleSave()}
-            >
+            <button disabled={this.state.backronym.length < this.state.inputCharacters.length && this.state.backronym.length > 0}
+              className="secondaryControlButtons secondarySButton" onClick={() => this.handleSave()}>
               Save
             </button>
             <footer>
@@ -273,53 +259,44 @@ class Search extends Component {
         <div className="results">
           {/* show words from the API results until the user accepts backronyms for all letters and then pass the ngram frequencies as props to the Frequency component */}
           <div className="resultsGap">
-            {!this.state.isGenerated ? null : this.state.backronym.length <
-              this.state.inputCharacters.length ? (
-              <Word
-                word={this.state.apiWords[this.state.rejectCounter].word}
-                accept={this.accept}
-                reject={this.reject}
-                pause={this.state.acceptPause}
-              />
-            ) : (
-              <Frequency frequency={this.state.frequency} />
-            )}
+            {
+              !this.state.isGenerated ? null : this.state.backronym.length < this.state.inputCharacters.length
+                ? <Word
+                  word={this.state.apiWords[this.state.rejectCounter].word}
+                  accept={this.accept}
+                  reject={this.reject}
+                  pause={this.state.acceptPause} />
+                : <Frequency frequency={this.state.frequency} />
+            }
 
-            {this.state.loading ? (
-              <Loader />
-            ) : (
-              <ul className="words">
-                {
-                  //  display the user accepted backronym word
-                  this.state.backronym.map((word, index) => {
-                    return <li key={index}>{word}</li>;
-                  })
-                }
-              </ul>
-            )}
+            {
+              this.state.loading
+                ? <Loader />
+                : <ul className="words">
+                  {//  display the user accepted backronym word
+                    this.state.backronym.map((word, index) => {
+                      return <li key={index}>{word}</li>;
+                    })
+                  }
+                </ul>
+            }
             <div className="collectionButtons">
-              {!this.state.displayOrCollection ? (
-                <button
-                  className="collection primeButton"
-                  onClick={() => this.displayOrCollection()}
-                >
-                  My Collection
+              {
+                !this.state.displayOrCollection
+                  ? <button className="collection primeButton" onClick={() => this.displayOrCollection()}>
+                    My Collection
                 </button>
-              ) : (
-                <button
-                  className="collection secondarySButton"
-                  onClick={() => this.displayOrCollection()}
-                >
-                  Recent
+                  : <button className="collection secondarySButton" onClick={() => this.displayOrCollection()}>
+                    Recent
                 </button>
-              )}
+              }
             </div>
           </div>
-          {!this.state.displayOrCollection ? (
-            <DisplayB />
-          ) : (
-            <UserCollection userEmail={this.props.userEmail} />
-          )}
+          {
+            !this.state.displayOrCollection
+              ? <DisplayB />
+              : <UserCollection userEmail={this.props.userEmail} />
+          }
         </div>
       </div>
     );
