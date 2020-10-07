@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import firebase from "./pineapple";
+import firebase from "./firebase";
 
 //This Component renders the user's collection of backronyms
 class UserCollection extends Component {
